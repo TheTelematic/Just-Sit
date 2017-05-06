@@ -1,8 +1,5 @@
 package com.google.zxing.integration.android;
 
-/**
- * Created by Juanca on 27/04/2017.
- */
 
 /*
  * Copyright 2009 ZXing authors
