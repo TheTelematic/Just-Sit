@@ -22,6 +22,10 @@
         </activity>
         <activity android:name=".EscaneoActivity" />
         <activity android:name=".RegistroActivity" />
+        <activity
+            android:name=".BarActivity"
+            android:label="@string/title_activity_bar"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
