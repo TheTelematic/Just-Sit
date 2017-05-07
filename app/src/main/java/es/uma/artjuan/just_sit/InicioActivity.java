@@ -16,11 +16,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import static android.os.Build.VERSION_CODES.M;
 
 public class InicioActivity extends AppCompatActivity {
     private EditText usuario;
@@ -28,7 +35,7 @@ public class InicioActivity extends AppCompatActivity {
     private Button button;
     private Context context = this;
     private int SERVERPORT = 5051;
-    private  String ADDRESS = "192.168.1.10";
+    private  String ADDRESS = "192.168.1.144";
     private String tipouser ="";
 
     @Override
@@ -82,13 +89,24 @@ public class InicioActivity extends AppCompatActivity {
                 OutputStream sOut = socket.getOutputStream();
                 OutputStream sOutp = socket.getOutputStream();
 
-                enviaSocket(sOut,values[0]);
+                // Usando la API que da Arturo en la clase Mensajes...
+
+                Mensajes m = new Mensajes();
+
+                tipouser = m.es_correcto(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
+                        values[0],
+                        values[1],
+                        new BufferedReader(new InputStreamReader(socket.getInputStream())));
+
+                //Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
+
+                /*enviaSocket(sOut,values[0]);
                 String passcod = values[1];
                 codificarPass(passcod);
                 enviaSocket(sOutp, passcod);
 
                 InputStream sIn = socket.getInputStream();
-                tipouser = recibeSocket(sIn);
+                tipouser = recibeSocket(sIn);*/
 
                 socket.close();
                 return tipouser;
@@ -109,11 +127,13 @@ public class InicioActivity extends AppCompatActivity {
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
             if(tipouser.equals("bar")) {
-                Intent i = new Intent(context, EscaneoActivity.class);
-                startActivity(i);
+                //Intent i = new Intent(context, EscaneoActivity.class);
+                //startActivity(i);
+                Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
             }else if(tipouser.equals("normal")){
-                Intent i = new Intent(context, RegistroActivity.class);
-                startActivity(i);
+                Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
+                //Intent i = new Intent(context, RegistroActivity.class);
+                //startActivity(i);
             }else{
                 Toast.makeText(context, "Usuario o pass incorrecta", Toast.LENGTH_LONG).show();
             }
