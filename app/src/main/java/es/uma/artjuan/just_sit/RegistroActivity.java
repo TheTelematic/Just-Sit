@@ -89,7 +89,12 @@ public class RegistroActivity extends AppCompatActivity {
 
                 Mensajes m = new Mensajes();
 
-                m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), values[0], values[1]/*,values[2]*/);
+                if(values[2].equals("Clientes")){
+                    m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), values[0], values[1], "0");
+                }else if(values[2].equals("Bar")){
+                    m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), values[0], values[1], "1");
+                }
+
                 socket.close();
                 return "ok";
             }catch (UnknownHostException ex) {

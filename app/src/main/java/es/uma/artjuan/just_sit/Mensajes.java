@@ -19,10 +19,10 @@ public class Mensajes {
         public static final String TIPO_BAR = "bar";
     }
 
-    public void addnewuser(BufferedWriter out, String username, String password){
+    public void addnewuser(BufferedWriter out, String username, String password, String typeuser){
 
         try {
-            out.write(Comandos.ADDNEWUSER + " " + username + " " + password);
+            out.write(Comandos.ADDNEWUSER + " " + username + " " + password + " " + typeuser);
             out.newLine();
             out.flush();
         } catch (IOException e) {
