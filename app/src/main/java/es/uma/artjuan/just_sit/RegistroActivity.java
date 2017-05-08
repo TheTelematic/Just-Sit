@@ -33,7 +33,7 @@ public class RegistroActivity extends AppCompatActivity {
     private Button button;
     private Context context = this;
     private int SERVERPORT = 5051;
-    private  String ADDRESS = "192.168.1.144";
+    private  String ADDRESS = "192.168.1.90";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,7 @@ public class RegistroActivity extends AppCompatActivity {
         String[] opciones = {"Cliente","Bar"};
         ArrayAdapter <String>adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, opciones);
         spinner1.setAdapter(adapter);
-        button = ((Button) findViewById(R.id.enter_b));
+        button = (Button) findViewById(R.id.enviar_b);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -89,7 +89,7 @@ public class RegistroActivity extends AppCompatActivity {
 
                 Mensajes m = new Mensajes();
 
-                if(values[2].equals("Clientes")){
+                if(values[2].equals("Cliente")){
                     m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), values[0], values[1], "0");
                 }else if(values[2].equals("Bar")){
                     m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), values[0], values[1], "1");

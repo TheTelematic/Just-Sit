@@ -22,7 +22,13 @@ public class Mensajes {
     public void addnewuser(BufferedWriter out, String username, String password, String typeuser){
 
         try {
-            out.write(Comandos.ADDNEWUSER + " " + username + " " + password + " " + typeuser);
+            out.write(Comandos.ADDNEWUSER);
+            out.newLine();
+            out.write(username);
+            out.newLine();
+            out.write(password);
+            out.newLine();
+            out.write(typeuser);
             out.newLine();
             out.flush();
         } catch (IOException e) {
@@ -34,7 +40,11 @@ public class Mensajes {
     public String es_correcto(BufferedWriter out, String username, String password, BufferedReader in){
         String resultado = "";
         try {
-            out.write(Comandos.COMPARA + " " + username + " " + password);
+            out.write(Comandos.COMPARA);
+            out.newLine();
+            out.write(username);
+            out.newLine();
+            out.write(password);
             out.newLine();
             out.flush();
 
