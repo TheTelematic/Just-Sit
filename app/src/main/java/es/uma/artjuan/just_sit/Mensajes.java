@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 
 public class Mensajes {
-    private class Comandos {
+    public class Comandos {
         public static final String COMPARA = "COMPARA";
         public static final String ADDNEWUSER = "ADDNEWUSER";
         public static final String RCOMPARA_OK_USUARIO = "COMPARA_OK_USUARIO";
