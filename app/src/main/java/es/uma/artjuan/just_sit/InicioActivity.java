@@ -127,13 +127,14 @@ public class InicioActivity extends AppCompatActivity {
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
             if(tipouser.equals(Mensajes.Comandos.TIPO_BAR)) {
-                //Intent i = new Intent(context, EscaneoActivity.class);
-                //startActivity(i);
                 Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
+                Intent i = new Intent(context, BarActivity.class);
+                startActivity(i);
+
             }else if(tipouser.equals(Mensajes.Comandos.TIPO_NORMAL)){
                 Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
-                //Intent i = new Intent(context, RegistroActivity.class);
-                //startActivity(i);
+                Intent i = new Intent(context, EscaneoActivity.class);
+                startActivity(i);
             }else{
                 Toast.makeText(context, "Usuario o pass incorrecta", Toast.LENGTH_LONG).show();
             }
