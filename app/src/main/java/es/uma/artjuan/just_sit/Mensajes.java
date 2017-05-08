@@ -17,10 +17,12 @@ public class Mensajes {
         public static final String RCOMPARA_NOOK = "COMPARA_NOOK";
         public static final String TIPO_NORMAL = "normal";
         public static final String TIPO_BAR = "bar";
+        public static final String RADDNEWUSER_YAEXISTE = "ADDNEWUSER_YAEXISTE";
+        public static final String RADDNEWUSER_OK = "ADDNEWUSER_OK";
     }
 
-    public void addnewuser(BufferedWriter out, String username, String password, String typeuser){
-
+    public boolean addnewuser(BufferedWriter out, String username, String password, String typeuser, BufferedReader in ){
+        String tmp = "";
         try {
             out.write(Comandos.ADDNEWUSER);
             out.newLine();
@@ -31,10 +33,26 @@ public class Mensajes {
             out.write(typeuser);
             out.newLine();
             out.flush();
+
+            tmp = in.readLine();
+
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        if(tmp.equals("OK - " + Comandos.RADDNEWUSER_YAEXISTE)){
+            return false;
+        }else if(tmp.equals("OK - " + Comandos.RADDNEWUSER_OK)){
+            return true;
+        }else{
+
+            System.out.println("ERROR - 0000002");
+
+            return false;
+        }
     }
 
     public String es_correcto(BufferedWriter out, String username, String password, BufferedReader in){
@@ -54,6 +72,10 @@ public class Mensajes {
                 resultado = Comandos.TIPO_NORMAL;
             }else if(tmp.equals("OK - " + Comandos.RCOMPARA_OK_BAR)){
                 resultado = Comandos.TIPO_BAR;
+            }else if(tmp.equals("OK - " + Comandos.RCOMPARA_NOOK)){
+                System.out.println("USUARIO o CONTRASEÑA INCORRECTA");
+            }else{
+                System.out.println("ERROR - 0000001");
             }
 
         } catch (IOException e) {

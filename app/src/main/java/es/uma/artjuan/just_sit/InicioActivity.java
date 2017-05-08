@@ -34,9 +34,9 @@ public class InicioActivity extends AppCompatActivity {
     private EditText pass;
     private Button button;
     private Context context = this;
-    private int SERVERPORT = 5051;
-    private  String ADDRESS = "192.168.1.144";
-    private String tipouser ="";
+    private String tipouser;
+    private ServerInfo server;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class InicioActivity extends AppCompatActivity {
             }
         });
 
-
+        server = ServerInfo.getInstance();
     }
 
     private class MyATaskCliente extends AsyncTask<String,Void,String> {
@@ -84,7 +84,7 @@ public class InicioActivity extends AppCompatActivity {
         protected String doInBackground(String... values){
 
             try {
-                Socket socket = new Socket(ADDRESS, SERVERPORT);
+                Socket socket = new Socket(server.getAddress(), server.getPort());
 
                 OutputStream sOut = socket.getOutputStream();
                 OutputStream sOutp = socket.getOutputStream();

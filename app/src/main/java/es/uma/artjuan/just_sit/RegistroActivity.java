@@ -25,6 +25,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import static android.R.attr.value;
 import static es.uma.artjuan.just_sit.R.id.spinner;
 
 public class RegistroActivity extends AppCompatActivity {
@@ -32,8 +33,7 @@ public class RegistroActivity extends AppCompatActivity {
     private EditText user,pass1, pass2;
     private Button button;
     private Context context = this;
-    private int SERVERPORT = 5051;
-    private  String ADDRESS = "192.168.1.90";
+    private ServerInfo server;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +63,8 @@ public class RegistroActivity extends AppCompatActivity {
                 }
             }
         });
+
+        server = ServerInfo.getInstance();
     }
 
     private class MyATaskRegistro extends AsyncTask<String,Void,String> {
@@ -85,14 +87,34 @@ public class RegistroActivity extends AppCompatActivity {
         protected String doInBackground(String... values){
 
             try {
-                Socket socket = new Socket(ADDRESS, SERVERPORT);
+                Socket socket = new Socket(server.getAddress(), server.getPort());
 
                 Mensajes m = new Mensajes();
 
+                boolean res = true;
+
                 if(values[2].equals("Cliente")){
-                    m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), values[0], values[1], "0");
+                    res = m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
+                            values[0],
+                            values[1],
+                            "0",
+                            new BufferedReader(new InputStreamReader(socket.getInputStream())));
                 }else if(values[2].equals("Bar")){
-                    m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), values[0], values[1], "1");
+                    res = m.addnewuser(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
+                            values[0],
+                            values[1],
+                            "1",
+                            new BufferedReader(new InputStreamReader(socket.getInputStream())));
+                }else{
+
+                    System.out.println("ERROR - 0000003");
+
+                }
+
+                if(!res){
+                    progressDialog.setMessage("El usuario ya existe");
+                }else{
+                    progressDialog.setMessage("Usuario creado correctamente");
                 }
 
                 socket.close();
