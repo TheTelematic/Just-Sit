@@ -1,12 +1,12 @@
 package es.uma.artjuan.just_sit;
 
 /**
- * Created by artur on 08/05/2017.
+ * Created by arthur on 08/05/2017.
  */
 
 public class ServerInfo {
 
-    private static final String ADDRESS = "192.168.1.13";
+    private static final String ADDRESS = "192.168.43.241";
     private static final int PORT = 5051;
 
     private static String address;

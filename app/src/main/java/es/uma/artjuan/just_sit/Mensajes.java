@@ -3,6 +3,7 @@ package es.uma.artjuan.just_sit;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by arthur on 07/05/2017.
@@ -19,6 +20,8 @@ public class Mensajes {
         public static final String TIPO_BAR = "bar";
         public static final String RADDNEWUSER_YAEXISTE = "ADDNEWUSER_YAEXISTE";
         public static final String RADDNEWUSER_OK = "ADDNEWUSER_OK";
+        public static final String PEDIR_MENU="PEDIRMENU";
+        public static final String HACER_PEDIDO="HACERPEDIDO";
     }
 
     public boolean addnewuser(BufferedWriter out, String username, String password, String typeuser, BufferedReader in ){
@@ -84,4 +87,53 @@ public class Mensajes {
 
         return resultado;
     }
+
+    public ArrayList<Plato> pedirMenu(BufferedWriter out, String qr, BufferedReader in){
+        ArrayList<Plato> tmp= new ArrayList<Plato>();
+        String nombre="";
+        String precio="";
+        try {
+            out.write(Comandos.PEDIR_MENU);
+            out.newLine();
+            out.write(qr);
+            out.newLine();
+            out.flush();
+            int tam=Integer.parseInt(in.readLine());
+            for(int i=0; i<tam;i++){
+                nombre = in.readLine();
+                precio = in.readLine();
+                Plato plato = new Plato(precio,nombre,false);
+                tmp.add(plato);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return tmp;
+    }
+
+    public String hacerPedido(BufferedWriter out, ArrayList<Plato> platoList, BufferedReader in) {
+        String estadoPed="";
+        try {
+            out.write(Comandos.HACER_PEDIDO);
+            out.newLine();
+        for (int i = 0; i < platoList.size(); i++) {
+            Plato plato = platoList.get(i);
+            if (plato.isMarcado()) {
+                out.write(plato.getNombre());
+                out.newLine();
+                out.flush();
+            }
+
+        }
+        estadoPed=in.readLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
+        return estadoPed;
+    }
+
 }

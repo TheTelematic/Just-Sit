@@ -112,9 +112,9 @@ public class RegistroActivity extends AppCompatActivity {
                 }
 
                 if(!res){
-                    progressDialog.setMessage("El usuario ya existe");
+                    //progressDialog.setMessage("El usuario ya existe");
                 }else{
-                    progressDialog.setMessage("Usuario creado correctamente");
+                    //progressDialog.setMessage("Usuario creado correctamente");
                 }
 
                 socket.close();

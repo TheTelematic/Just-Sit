@@ -98,15 +98,7 @@ public class InicioActivity extends AppCompatActivity {
                         values[1],
                         new BufferedReader(new InputStreamReader(socket.getInputStream())));
 
-                //Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
 
-                /*enviaSocket(sOut,values[0]);
-                String passcod = values[1];
-                codificarPass(passcod);
-                enviaSocket(sOutp, passcod);
-
-                InputStream sIn = socket.getInputStream();
-                tipouser = recibeSocket(sIn);*/
 
                 socket.close();
                 return tipouser;
@@ -141,23 +133,7 @@ public class InicioActivity extends AppCompatActivity {
         }
     }
 
-    public String recibeSocket(InputStream sIn) throws IOException {
-        String mensaje="";
-        int c;
-        while( ( c = sIn.read() ) != (int)'\n' ){
-            mensaje+=(char)c;
-        }
-        return mensaje;
-    }
 
-    public void enviaSocket(OutputStream o, String mensaje) throws IOException {
-        int longCad;
-        longCad = mensaje.length();
-        for( int i=0; i < longCad; i++ ){
-            o.write( (int)mensaje.charAt( i ) );
-        }
-        o.write( (int)'\n' );
-    }
 
     public String codificarPass(String pass){
         String cod=pass;
