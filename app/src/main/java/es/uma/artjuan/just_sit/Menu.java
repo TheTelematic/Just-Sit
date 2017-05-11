@@ -29,7 +29,7 @@ public class Menu {
 
     }
 
-    public static ArrayList<Plato> getListaMenu(){
+    public ArrayList<Plato> getListaMenu(){
         return listaMenu;
     }
 }

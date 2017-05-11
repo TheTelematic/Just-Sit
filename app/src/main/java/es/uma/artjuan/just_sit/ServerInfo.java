@@ -6,7 +6,7 @@ package es.uma.artjuan.just_sit;
 
 public class ServerInfo {
 
-    private static final String ADDRESS = "192.168.43.241";
+    private static final String ADDRESS = "192.168.1.137";
     private static final int PORT = 5051;
 
     private static String address;

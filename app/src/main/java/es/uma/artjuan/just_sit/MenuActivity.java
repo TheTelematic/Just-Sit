@@ -174,8 +174,33 @@ public class MenuActivity extends AppCompatActivity {
                 Socket socket = new Socket(server.getAddress(), server.getPort());
                 Mensajes m = new Mensajes();
 
+                ArrayList<String> id_platos = new ArrayList<>();
+                ArrayList<Integer> cantidad_platos = new ArrayList<>();
+
+
+                for(Plato plato : values[0]){
+
+                    if(plato.isMarcado()){
+                        String id = plato.getId();
+
+                        int i = id_platos.indexOf(id);
+
+                        if( i == -1){
+                            id_platos.add(id);
+                            cantidad_platos.add(1); //                                  TODO: CAMBIAR CANTIDAD
+                        }else{
+                            cantidad_platos.set(i, cantidad_platos.get(i) + 1); //      TODO: CAMBIAR CANTIDAD
+                        }
+
+
+                    }
+
+                }
+
+
                 estadoPed= m.hacerPedido(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
-                        values[0],
+                        id_platos,
+                        cantidad_platos,
                         new BufferedReader(new InputStreamReader(socket.getInputStream())));
 
                 socket.close();

@@ -23,6 +23,8 @@ public class Mensajes {
         public static final String PEDIR_MENU="PEDIRMENU";
         public static final String HACER_PEDIDO="HACERPEDIDO";
         public static final String RPEDIRMENU="RPEDIRMENU";
+        public static final String PEDIDO = "PEDIDO";
+        public static final String PEDIDO_OK = "PEDIDO_OK";
 
     }
 
@@ -123,21 +125,27 @@ public class Mensajes {
         return true;
     }
 
-    public String hacerPedido(BufferedWriter out, ArrayList<Plato> platoList, BufferedReader in) {
+    public String hacerPedido(BufferedWriter out, ArrayList<String> id_platos, ArrayList<Integer> cantidad_platos, BufferedReader in) {
+
+        if(id_platos.size() != cantidad_platos.size()){
+            return null;
+        }
+
         String estadoPed="";
         try {
-            out.write(Comandos.HACER_PEDIDO);
+            out.write(Comandos.PEDIDO);
             out.newLine();
-        for (int i = 0; i < platoList.size(); i++) {
-            Plato plato = platoList.get(i);
-            if (plato.isMarcado()){
-                out.write(plato.getId());
+            out.write(String.valueOf(id_platos.size() + cantidad_platos.size()));
+            out.newLine();
+
+            for (int i = 0; i < id_platos.size(); i++) {
+                out.write(id_platos.get(i));
+                out.newLine();
+                out.write(String.valueOf(cantidad_platos.get(i)));
                 out.newLine();
                 out.flush();
             }
-
-        }
-        estadoPed=in.readLine();
+            estadoPed=in.readLine();
 
         } catch (IOException e) {
             e.printStackTrace();
