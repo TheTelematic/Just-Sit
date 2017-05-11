@@ -22,6 +22,8 @@ public class Mensajes {
         public static final String RADDNEWUSER_OK = "ADDNEWUSER_OK";
         public static final String PEDIR_MENU="PEDIRMENU";
         public static final String HACER_PEDIDO="HACERPEDIDO";
+        public static final String RPEDIRMENU="RPEDIRMENU";
+
     }
 
     public boolean addnewuser(BufferedWriter out, String username, String password, String typeuser, BufferedReader in ){
@@ -88,28 +90,37 @@ public class Mensajes {
         return resultado;
     }
 
-    public ArrayList<Plato> pedirMenu(BufferedWriter out, String qr, BufferedReader in){
-        ArrayList<Plato> tmp= new ArrayList<Plato>();
+    public boolean pedirMenu(BufferedWriter out, String qr, BufferedReader in){
+
         String nombre="";
         String precio="";
+        String id="";
         try {
             out.write(Comandos.PEDIR_MENU);
             out.newLine();
             out.write(qr);
             out.newLine();
             out.flush();
+            String ok=in.readLine();
+            System.out.println("_______________________ vjbsdfg__________________"+ok);
+            if(!ok.equals("OK - "+Comandos.RPEDIRMENU)){
+                return false;
+
+            }
+
+            Menu m = Menu.getSingleton();
             int tam=Integer.parseInt(in.readLine());
             for(int i=0; i<tam;i++){
+                id = in.readLine();
                 nombre = in.readLine();
                 precio = in.readLine();
-                Plato plato = new Plato(precio,nombre,false);
-                tmp.add(plato);
+                m.add(id, precio,nombre);
             }
         }catch (IOException e){
             e.printStackTrace();
         }
 
-        return tmp;
+        return true;
     }
 
     public String hacerPedido(BufferedWriter out, ArrayList<Plato> platoList, BufferedReader in) {
@@ -119,8 +130,8 @@ public class Mensajes {
             out.newLine();
         for (int i = 0; i < platoList.size(); i++) {
             Plato plato = platoList.get(i);
-            if (plato.isMarcado()) {
-                out.write(plato.getNombre());
+            if (plato.isMarcado()){
+                out.write(plato.getId());
                 out.newLine();
                 out.flush();
             }

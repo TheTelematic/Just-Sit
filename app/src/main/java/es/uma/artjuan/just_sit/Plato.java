@@ -5,15 +5,25 @@ package es.uma.artjuan.just_sit;
  */
 
 public class Plato {
+    private String id=null;
     private String nombre=null;
     private String precio=null;
     private boolean marcado=false;
 
-    public Plato(String precio, String nombre, boolean marcado) {
+    public Plato(String id,String precio, String nombre, boolean marcado) {
         super();
+        this.id=id;
         this.precio = precio;
         this.nombre = nombre;
         this.marcado = marcado;
+    }
+
+    public void setId(String id){
+        this.id=id;
+    }
+
+    public String getId(){
+        return id;
     }
 
     public String getNombre(){

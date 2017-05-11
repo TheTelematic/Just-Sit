@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -20,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -83,7 +81,7 @@ public class EscaneoActivity extends ActionBarActivity implements View.OnClickLi
     private class MyATaskEscaneo extends AsyncTask<String,Void,String> {
 
         ProgressDialog progressDialog;
-        private ArrayList<Plato> menu = new ArrayList<Plato>();
+        private ArrayList<Plato> menu;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -103,10 +101,13 @@ public class EscaneoActivity extends ActionBarActivity implements View.OnClickLi
 
                 Mensajes m = new Mensajes();
 
-                menu = m.pedirMenu(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
+                boolean r = m.pedirMenu(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
                         values[0],
                         new BufferedReader(new InputStreamReader(socket.getInputStream())));
-
+                if(!r){
+                    System.out.println("___________________________________________ERROR____________________________");
+                    //Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
+                }
 
                 socket.close();
                 return "ok";
@@ -125,8 +126,7 @@ public class EscaneoActivity extends ActionBarActivity implements View.OnClickLi
         @Override
         protected void onPostExecute(String value) {
             progressDialog.dismiss();//oculta ventana emergente
-            Intent intent = new Intent(context, MenuList.class);
-            intent.putExtra("menu", menu);
+            Intent intent = new Intent(context, MenuActivity.class);
             startActivity(intent);
         }
     }
