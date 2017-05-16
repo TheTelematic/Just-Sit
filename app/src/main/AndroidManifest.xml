@@ -26,7 +26,11 @@
             android:name=".BarActivity"
             android:label="@string/title_activity_bar"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MenuActivity" />
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

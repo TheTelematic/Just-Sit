@@ -5,29 +5,24 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
+import android.view.*;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import static android.os.Build.VERSION_CODES.M;
 
 public class InicioActivity extends AppCompatActivity {
     private EditText usuario;
@@ -62,6 +57,29 @@ public class InicioActivity extends AppCompatActivity {
         });
 
         server = ServerInfo.getInstance();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.setting:
+
+                Intent i = new Intent(context, Settings.class);
+                startActivity(i);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class MyATaskCliente extends AsyncTask<String,Void,String> {
