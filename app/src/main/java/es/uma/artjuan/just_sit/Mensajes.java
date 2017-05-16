@@ -112,6 +112,7 @@ public class Mensajes {
 
             Menu m = Menu.getSingleton();
             int tam=Integer.parseInt(in.readLine());
+            m.setTam(tam);
             for(int i=0; i<tam;i++){
                 id = in.readLine();
                 nombre = in.readLine();

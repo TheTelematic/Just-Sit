@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Menu {
     private static ArrayList<Plato> listaMenu;
 
+    private static int tam;
     private static Menu singleton = null;
 
     protected Menu(){
@@ -19,14 +20,21 @@ public class Menu {
         if(singleton == null){
             singleton = new Menu();
         }
-
         return singleton;
+    }
+
+
+    public static int getTam() {
+        return tam;
+    }
+
+    public static void setTam(int tam) {
+        Menu.tam = tam;
     }
 
     public static  void add(String id, String precio, String nombre){
         Plato plato= new Plato(id, precio, nombre, false);
         listaMenu.add(plato);
-
     }
 
     public ArrayList<Plato> getListaMenu(){

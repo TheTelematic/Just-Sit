@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,16 +31,20 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity {
-
+    private int mesa=0;
+    private EditText nmesa;
     private Context context=this;
     private ServerInfo server;
     private MyCustomAdapter dataAdapter = null;
-    ArrayList<Plato> platoList = new ArrayList<Plato>();
+    private ArrayList<Plato> platoList = new ArrayList<>();
+    private String[] valueList= new String[Menu.getTam()];
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
+        nmesa=(EditText)findViewById(R.id.nmesa);
+        mesa = Integer.parseInt(nmesa.getText().toString());                        //TODO: Enviarle mesa al server.
         server = ServerInfo.getInstance();
         //Generate list View from ArrayList
         displayListView();
@@ -89,12 +96,13 @@ public class MenuActivity extends AppCompatActivity {
         private class ViewHolder {
             TextView code;
             CheckBox name;
+            EditText cant;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
-            MyCustomAdapter.ViewHolder holder = null;
+            final ViewHolder holder;
             Log.v("ConvertView", String.valueOf(position));
 
             if (convertView == null) {
@@ -102,9 +110,10 @@ public class MenuActivity extends AppCompatActivity {
                         Context.LAYOUT_INFLATER_SERVICE);
                 convertView = vi.inflate(R.layout.plato_info, null);
 
-                holder = new MyCustomAdapter.ViewHolder();
+                holder = new ViewHolder();
                 holder.code = (TextView) convertView.findViewById(R.id.code);
                 holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
+                holder.cant = (EditText) convertView.findViewById(R.id.cant);
                 convertView.setTag(holder);
 
                 holder.name.setOnClickListener( new View.OnClickListener() {
@@ -116,6 +125,20 @@ public class MenuActivity extends AppCompatActivity {
                                         " is " + cb.isChecked(),
                                 Toast.LENGTH_LONG).show();
                         plato.setMarcado(cb.isChecked());
+                    }
+                });
+                holder.cant.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        valueList[position] = s.toString();
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        Log.i("AfterTextChange",holder.cant.getText().toString());
                     }
                 });
             }
@@ -177,26 +200,20 @@ public class MenuActivity extends AppCompatActivity {
                 ArrayList<String> id_platos = new ArrayList<>();
                 ArrayList<Integer> cantidad_platos = new ArrayList<>();
 
-
+                int k = 0;
                 for(Plato plato : values[0]){
 
                     if(plato.isMarcado()){
                         String id = plato.getId();
 
-                        int i = id_platos.indexOf(id);
-
-                        if( i == -1){
-                            id_platos.add(id);
-                            cantidad_platos.add(1); //                                  TODO: CAMBIAR CANTIDAD
-                        }else{
-                            cantidad_platos.set(i, cantidad_platos.get(i) + 1); //      TODO: CAMBIAR CANTIDAD
+                        id_platos.add(id);
+                        if(valueList[k]==null){
+                            Toast.makeText(context, "Introduce cantidad de " + plato.getNombre(), Toast.LENGTH_SHORT).show();
                         }
-
-
-                    }
-
+                            cantidad_platos.add(Integer.parseInt(valueList[k])); //
+                        }
+                    k++;
                 }
-
 
                 estadoPed= m.hacerPedido(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
                         id_platos,
@@ -222,8 +239,8 @@ public class MenuActivity extends AppCompatActivity {
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
             Toast.makeText(context,estadoPed,Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(context, EscaneoActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(context, EscaneoActivity.class);
+            //startActivity(intent);
         }
     }
 }

@@ -23,4 +23,16 @@
         android:layout_toRightOf="@+id/checkBox1"
         android:text="TextView" />
 
+    <EditText
+        android:id="@+id/cant"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/code"
+        android:layout_alignBottom="@+id/code"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35dp"
+        android:ems="10"
+        android:inputType="number"
+        android:descendantFocusability="blocksDescendants"/>
+
 </RelativeLayout>
