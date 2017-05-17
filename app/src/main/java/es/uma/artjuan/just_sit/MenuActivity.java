@@ -246,7 +246,7 @@ public class MenuActivity extends AppCompatActivity {
             progressDialog.dismiss();//oculta ventana emergente
             Toast.makeText(context,estadoPed,Toast.LENGTH_SHORT).show();
 
-            if(estadoPed == Mensajes.Comandos.PEDIDO_OK){
+            if(estadoPed.equals("OK - " + Mensajes.Comandos.PEDIDO_OK)){
                 Intent intent = new Intent(context, PedidoActivity.class);
                 startActivity(intent);
             }

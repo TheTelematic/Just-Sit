@@ -32,6 +32,8 @@ public class PedidoActivity extends AppCompatActivity {
             }
         });
 
+
+        toolbar.setTitle("Total: ");
         nsv = (NestedScrollView) findViewById(R.id.scroll_contenido_cuenta);
 
 
@@ -41,7 +43,9 @@ public class PedidoActivity extends AppCompatActivity {
 
         for(Plato p : platos){
 
-            cuenta.setText(cuenta.getText() + "\r\n" + p.getNombre() + " - " + p.getCantidad());
+            if(p.getCantidad() > 0){
+                cuenta.setText(cuenta.getText() + "\r\n" + p.getNombre() + " - " + p.getCantidad());
+            }
 
 
         }

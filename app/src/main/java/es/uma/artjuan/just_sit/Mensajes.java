@@ -139,7 +139,7 @@ public class Mensajes {
 
             out.write(String.valueOf(id_platos.size() + cantidad_platos.size()+1));
             out.newLine();
-            out.write(mesa);
+            out.write(String.valueOf(mesa));
             out.newLine();
             for (int i = 0; i < id_platos.size(); i++) {
                 out.write(id_platos.get(i));
