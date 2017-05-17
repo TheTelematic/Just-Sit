@@ -128,6 +128,7 @@ public class EscaneoActivity extends ActionBarActivity implements View.OnClickLi
             progressDialog.dismiss();//oculta ventana emergente
             Intent intent = new Intent(context, MenuActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }

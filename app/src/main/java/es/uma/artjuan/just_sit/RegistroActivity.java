@@ -72,15 +72,13 @@ public class RegistroActivity extends AppCompatActivity {
         ProgressDialog progressDialog;
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute(){
             super.onPreExecute();
             progressDialog = new ProgressDialog(context);
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setTitle("Conectando al servidor");
             progressDialog.setMessage("Espera por favor...");
             progressDialog.show();
-
         }
 
         @Override
@@ -134,7 +132,9 @@ public class RegistroActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
-
+            Intent i = new Intent(context,InicioActivity.class );
+            startActivity(i);
+            finish();
         }
     }
 

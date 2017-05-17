@@ -2,7 +2,6 @@ package es.uma.artjuan.just_sit;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -44,7 +42,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         nmesa=(EditText)findViewById(R.id.nmesa);
-        mesa = Integer.parseInt(nmesa.getText().toString());                        //TODO: Send mesa to server.
+        mesa = Integer.parseInt(nmesa.getText().toString());
         server = ServerInfo.getInstance();
         //Generate list View from ArrayList
         displayListView();

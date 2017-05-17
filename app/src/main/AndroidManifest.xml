@@ -23,14 +23,13 @@
         <activity android:name=".EscaneoActivity" />
         <activity android:name=".RegistroActivity" />
         <activity
-            android:name=".BarActivity"
-            android:label="@string/title_activity_bar"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MenuActivity" android:windowSoftInputMode="adjustPan"/>
+            android:name=".MenuActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".BarActivity"></activity>
     </application>
 
 </manifest>
