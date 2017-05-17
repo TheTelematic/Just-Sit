@@ -5,11 +5,6 @@
     android:orientation="vertical"
     android:padding="6dip" >
 
-    <view android:background="#000080"
-        android:id="@+id/lineaHorizontal"
-        android:layout_height="2dp"
-        android:layout_width="fill_parent">
-    </view>
 
     <CheckBox
         android:id="@+id/checkBox1"
