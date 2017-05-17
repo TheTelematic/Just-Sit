@@ -1,6 +1,7 @@
 package es.uma.artjuan.just_sit;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
@@ -14,7 +15,9 @@ import java.util.List;
 public class PedidoActivity extends AppCompatActivity {
 
     private NestedScrollView nsv;
-    private TextView cuenta;
+    private static TextView cuenta;
+    private static String contenido = "";
+    private static double total = 0.00;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,8 @@ public class PedidoActivity extends AppCompatActivity {
             }
         });
 
-
-        toolbar.setTitle("Total: ");
+        CollapsingToolbarLayout toolbar2 = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        toolbar2.setTitle("Total: ");
         nsv = (NestedScrollView) findViewById(R.id.scroll_contenido_cuenta);
 
 
@@ -41,15 +44,20 @@ public class PedidoActivity extends AppCompatActivity {
 
         List<Plato> platos = Menu.getSingleton().getListaMenu();
 
+
         for(Plato p : platos){
 
             if(p.getCantidad() > 0){
-                cuenta.setText(cuenta.getText() + "\r\n" + p.getNombre() + " - " + p.getCantidad());
+                contenido += p.getCantidad() + " - (" + p.getPrecio() + "€/ud) " + p.getNombre() +   "\r\n";
+                double cantidad_plato = p.getCantidad() * 1.00;
+                double precio = Double.parseDouble(p.getPrecio());
+                total += cantidad_plato * precio;
             }
 
 
         }
-
+        cuenta.setText(contenido);
+        toolbar2.setTitle("Total: " + total + "€");
     }
 
 
