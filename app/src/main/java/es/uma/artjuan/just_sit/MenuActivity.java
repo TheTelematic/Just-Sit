@@ -239,8 +239,11 @@ public class MenuActivity extends AppCompatActivity {
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
             Toast.makeText(context,estadoPed,Toast.LENGTH_SHORT).show();
-            //Intent intent = new Intent(context, EscaneoActivity.class);
-            //startActivity(intent);
+
+            if(estadoPed == Mensajes.Comandos.PEDIDO_OK){
+                Intent intent = new Intent(context, PedidoActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }

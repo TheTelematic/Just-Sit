@@ -126,7 +126,7 @@ public class Mensajes {
         return true;
     }
 
-    public String hacerPedido(BufferedWriter out, ArrayList<String> id_platos, int mesa,ArrayList<Integer> cantidad_platos, BufferedReader in) {
+    public String hacerPedido(BufferedWriter out, ArrayList<String> id_platos, int mesa, ArrayList<Integer> cantidad_platos, BufferedReader in) {
 
         if(id_platos.size() != cantidad_platos.size()){
             return null;
@@ -134,7 +134,6 @@ public class Mensajes {
 
         String estadoPed="";
         try {
-            //  TODO: MANDAR NUMERO DE MESA
             out.write(Comandos.PEDIDO);
             out.newLine();
 

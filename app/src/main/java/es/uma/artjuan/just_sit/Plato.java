@@ -10,12 +10,31 @@ public class Plato {
     private String precio=null;
     private boolean marcado=false;
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    private int cantidad=0;
+
     public Plato(String id,String precio, String nombre, boolean marcado) {
         super();
         this.id=id;
         this.precio = precio;
         this.nombre = nombre;
         this.marcado = marcado;
+    }
+
+    public Plato(String id,String precio, String nombre, boolean marcado, int cantidad) {
+        super();
+        this.id=id;
+        this.precio = precio;
+        this.nombre = nombre;
+        this.marcado = marcado;
+        this.cantidad = cantidad;
     }
 
     public void setId(String id){
@@ -49,4 +68,6 @@ public class Plato {
     public void setMarcado(boolean marcado){
         this.marcado=marcado;
     }
+
+
 }

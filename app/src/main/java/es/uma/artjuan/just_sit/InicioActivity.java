@@ -148,6 +148,8 @@ public class InicioActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(context, "Usuario o pass incorrecta", Toast.LENGTH_LONG).show();
             }
+
+            finish();
         }
     }
 
