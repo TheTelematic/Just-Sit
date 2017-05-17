@@ -36,7 +36,7 @@
         <activity
             android:name=".PedidoActivity"
             android:label="@string/title_activity_pedido"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
