@@ -165,6 +165,9 @@ public class MenuActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+                mesa = Integer.parseInt(nmesa.getText().toString());
+
                 MyATaskMenu myATaskmenu = new MyATaskMenu();
                 myATaskmenu.execute(platoList);
 
@@ -215,6 +218,8 @@ public class MenuActivity extends AppCompatActivity {
                         }
                     k++;
                 }
+
+
 
                 estadoPed= m.hacerPedido(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
                         id_platos,

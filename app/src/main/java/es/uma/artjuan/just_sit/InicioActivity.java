@@ -140,18 +140,18 @@ public class InicioActivity extends AppCompatActivity {
                 Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(context, BarActivity.class);
                 startActivity(i);
-
+                finish();
 
             }else if(tipouser.equals(Mensajes.Comandos.TIPO_NORMAL)){
                 Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(context, EscaneoActivity.class);
                 startActivity(i);
-
+                finish();
             }else{
                 Toast.makeText(context, "Usuario o pass incorrecta", Toast.LENGTH_LONG).show();
             }
 
-            finish();
+
         }
     }
 
