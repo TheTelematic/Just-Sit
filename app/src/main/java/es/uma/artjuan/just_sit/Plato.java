@@ -9,6 +9,7 @@ public class Plato {
     private String nombre=null;
     private String precio=null;
     private boolean marcado=false;
+    private int cantidad=0;
 
     public int getCantidad() {
         return cantidad;
@@ -18,7 +19,6 @@ public class Plato {
         this.cantidad = cantidad;
     }
 
-    private int cantidad=0;
 
     public Plato(String id,String precio, String nombre, boolean marcado) {
         super();

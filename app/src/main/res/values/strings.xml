@@ -10,6 +10,12 @@
     <string name="mesa_text">
     Mesa:
     </string>
+    <string name="mesas_text">
+    Mesas
+    </string>
+    <string name="intmesa_text">
+    Nº de mesas
+    </string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_pedido">PedidoActivity</string>
     <string name="large_text">

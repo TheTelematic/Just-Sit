@@ -207,9 +207,11 @@ public class MenuActivity extends AppCompatActivity {
 
                         id_platos.add(id);
                         if(valueList[k]==null){
+                            plato.setCantidad(0);
                             Toast.makeText(context, "Introduce cantidad de " + plato.getNombre(), Toast.LENGTH_SHORT).show();
                         }
-                            cantidad_platos.add(Integer.parseInt(valueList[k])); //
+                        plato.setCantidad(Integer.parseInt(valueList[k]));
+                        cantidad_platos.add(plato.getCantidad());
                         }
                     k++;
                 }
