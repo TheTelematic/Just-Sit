@@ -28,7 +28,7 @@ public class PedidoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Pedir la cuenta", Snackbar.LENGTH_LONG)
-                        .setAction("PedirLaCuenta",null ).show();
+                        .setAction("pedirCuenta",null ).show();
             }
         });
 
@@ -41,7 +41,7 @@ public class PedidoActivity extends AppCompatActivity {
 
         for(Plato p : platos){
 
-            cuenta.setText(cuenta.getText() + "\r\n" + p.getNombre() + );
+            cuenta.setText(cuenta.getText() + "\r\n" + p.getNombre() + " - " + p.getCantidad());
 
 
         }

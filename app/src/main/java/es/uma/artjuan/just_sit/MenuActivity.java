@@ -43,7 +43,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         nmesa=(EditText)findViewById(R.id.nmesa);
-        mesa = Integer.parseInt(nmesa.getText().toString());
+        //mesa = Integer.parseInt(nmesa.getText().toString()); ESTO AQUI NO VA
         server = ServerInfo.getInstance();
         //Generate list View from ArrayList
         displayListView();
