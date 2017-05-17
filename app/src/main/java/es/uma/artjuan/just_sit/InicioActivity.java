@@ -155,7 +155,7 @@ public class InicioActivity extends AppCompatActivity {
 
     public String codificarPass(String pass){
         String cod=pass;
-
+                                                                                    //TODO: complete
         return cod;
     }
 

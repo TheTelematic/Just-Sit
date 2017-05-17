@@ -44,7 +44,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         nmesa=(EditText)findViewById(R.id.nmesa);
-        mesa = Integer.parseInt(nmesa.getText().toString());                        //TODO: Enviarle mesa al server.
+        mesa = Integer.parseInt(nmesa.getText().toString());                        //TODO: Send mesa to server.
         server = ServerInfo.getInstance();
         //Generate list View from ArrayList
         displayListView();
@@ -217,7 +217,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 estadoPed= m.hacerPedido(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
                         id_platos,
-                        cantidad_platos,
+                        mesa,cantidad_platos,
                         new BufferedReader(new InputStreamReader(socket.getInputStream())));
 
                 socket.close();
