@@ -134,6 +134,7 @@ public class Mensajes {
 
         String estadoPed="";
         try {
+            //  TODO: MANDAR NUMERO DE MESA
             out.write(Comandos.PEDIDO);
             out.newLine();
 
