@@ -240,7 +240,6 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
 
-
         @Override
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
