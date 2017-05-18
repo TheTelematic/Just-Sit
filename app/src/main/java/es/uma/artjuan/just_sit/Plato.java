@@ -16,7 +16,7 @@ public class Plato {
     }
 
     public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+        this.cantidad += cantidad;
     }
 
 

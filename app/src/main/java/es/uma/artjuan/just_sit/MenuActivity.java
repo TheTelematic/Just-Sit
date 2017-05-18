@@ -30,7 +30,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity {
-    private int mesa=0;
+    private static int mesa=0;
     private EditText nmesa;
     private Context context=this;
     private ServerInfo server;
@@ -43,6 +43,12 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         nmesa=(EditText)findViewById(R.id.nmesa);
+
+        if(mesa != 0){
+            nmesa.setText(String.valueOf(mesa));
+            nmesa.setFocusable(false);
+        }
+
         //mesa = Integer.parseInt(nmesa.getText().toString()); ESTO AQUI NO VA
         server = ServerInfo.getInstance();
         //Generate list View from ArrayList
@@ -58,6 +64,12 @@ public class MenuActivity extends AppCompatActivity {
         platoList = Menu.getSingleton().getListaMenu();
         if(platoList==null){
             Toast.makeText(this,"_________________ERRROR________________",Toast.LENGTH_LONG).show();
+        }
+
+        for(int k = 0; k < platoList.size(); k++){
+            Plato p = platoList.get(k);
+            p.setMarcado(false);
+            platoList.set(k, p);
         }
 
 
@@ -243,9 +255,12 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
-            Toast.makeText(context,estadoPed,Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Oido cocina! - Pedido realizado correctamente",Toast.LENGTH_SHORT).show();
 
             if(estadoPed.equals("OK - " + Mensajes.Comandos.PEDIDO_OK)){
+
+                //nmesa.setVisibility(View.INVISIBLE);
+
                 Intent intent = new Intent(context, PedidoActivity.class);
                 startActivity(intent);
             }

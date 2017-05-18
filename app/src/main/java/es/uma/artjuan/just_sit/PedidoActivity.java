@@ -51,6 +51,7 @@ public class PedidoActivity extends AppCompatActivity {
         List<Plato> platos = Menu.getSingleton().getListaMenu();
 
         contenido = "";
+        total=0;
         for(Plato p : platos){
 
             if(p.getCantidad() > 0){
