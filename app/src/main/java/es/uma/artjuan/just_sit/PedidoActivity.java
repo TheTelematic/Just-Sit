@@ -1,5 +1,7 @@
 package es.uma.artjuan.just_sit;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +20,7 @@ public class PedidoActivity extends AppCompatActivity {
     private static TextView cuenta;
     private static String contenido = "";
     private static double total = 0.00;
+    private Context context=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +29,17 @@ public class PedidoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.pagar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Pedir la cuenta", Snackbar.LENGTH_LONG)
-                        .setAction("pedirCuenta",null ).show();
+                //Snackbar.make(view, "Pedir la cuenta", Snackbar.LENGTH_LONG)
+                //        .setAction("pedirCuenta",null ).show();
+
+
             }
         });
+
 
         CollapsingToolbarLayout toolbar2 = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         toolbar2.setTitle("Total: ");
@@ -44,7 +50,7 @@ public class PedidoActivity extends AppCompatActivity {
 
         List<Plato> platos = Menu.getSingleton().getListaMenu();
 
-
+        contenido = "";
         for(Plato p : platos){
 
             if(p.getCantidad() > 0){
@@ -61,7 +67,7 @@ public class PedidoActivity extends AppCompatActivity {
     }
 
 
-    private void pedirCuenta(){
-
+    public void pedirMas(View view){
+        startActivity(new Intent(context, MenuActivity.class));
     }
 }

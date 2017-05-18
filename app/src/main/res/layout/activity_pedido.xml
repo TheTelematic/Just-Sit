@@ -33,10 +33,11 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_pedido" />
+    <include layout="@layout/content_pedido"
+        android:id="@+id/include" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/pagar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
@@ -44,5 +45,16 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@mipmap/pagar2" />
+
+    <Button
+        android:id="@+id/pedirmas"
+        android:layout_width="168dp"
+        android:layout_height="21dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@android:color/holo_green_light"
+        android:onClick="pedirMas"
+        android:text="Pedir +"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="top|center_horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>
