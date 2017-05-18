@@ -142,13 +142,18 @@ public class InicioActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
 
-            }else if(tipouser.equals(Mensajes.Comandos.TIPO_NORMAL)){
-                Toast.makeText(context, "Usuario logueado tipo "+ tipouser, Toast.LENGTH_LONG).show();
+            }else if(tipouser.equals(Mensajes.Comandos.TIPO_NORMAL)) {
+                Toast.makeText(context, "Usuario logueado tipo " + tipouser, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(context, EscaneoActivity.class);
                 startActivity(i);
                 finish();
-            }else{
+
+            }else if(tipouser.equals(Mensajes.Comandos.RCOMPARA_NOVERIFICADO_BAR)){
+                Toast.makeText(context, "El bar no ha sido verificado.\nContacte con el administrador de Just-Sit.", Toast.LENGTH_LONG).show();
+            }else if(tipouser.equals(Mensajes.Comandos.RCOMPARA_NOOK)){
                 Toast.makeText(context, "Usuario o pass incorrecta", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(context, "Algo no paso como deberia", Toast.LENGTH_LONG).show();
             }
 
 

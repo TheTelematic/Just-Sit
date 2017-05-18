@@ -25,6 +25,7 @@ public class Mensajes {
         public static final String RPEDIRMENU="RPEDIRMENU";
         public static final String PEDIDO = "PEDIDO";
         public static final String PEDIDO_OK = "PEDIDO_OK";
+        public static final String RCOMPARA_NOVERIFICADO_BAR = "RCOMPARA_NOVERIFICADO_BAR";
 
     }
 
@@ -81,6 +82,10 @@ public class Mensajes {
                 resultado = Comandos.TIPO_BAR;
             }else if(tmp.equals("OK - " + Comandos.RCOMPARA_NOOK)){
                 System.out.println("USUARIO o CONTRASEÑA INCORRECTA");
+                resultado = Comandos.RCOMPARA_NOOK;
+            }else if(tmp.equals("OK - " + Comandos.RCOMPARA_NOVERIFICADO_BAR)){
+                System.out.println("BAR NO VERIFICADO");
+                resultado = Comandos.RCOMPARA_NOVERIFICADO_BAR;
             }else{
                 System.out.println("ERROR - 0000001");
             }
