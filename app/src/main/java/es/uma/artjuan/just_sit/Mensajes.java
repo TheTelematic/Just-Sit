@@ -163,4 +163,10 @@ public class Mensajes {
         return estadoPed;
     }
 
+    public Pedidos getPedidos(){
+
+
+        return null;
+    }
+
 }
