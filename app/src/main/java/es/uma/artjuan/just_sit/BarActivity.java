@@ -60,8 +60,7 @@ public class BarActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(context, PedidoActivity.class);
-                startActivity(intent);
+                //TODO: Llamar a la vista de esta mesa
 
             }
         });
