@@ -30,7 +30,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity {
-    private int mesa=0;
+    private static int mesa=0;
     private EditText nmesa;
     private Context context=this;
     private ServerInfo server;
@@ -43,6 +43,12 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         nmesa=(EditText)findViewById(R.id.nmesa);
+
+        if(mesa != 0){
+            nmesa.setText(String.valueOf(mesa));
+            nmesa.setFocusable(false);
+        }
+
         server = ServerInfo.getInstance();
         //Generate list View from ArrayList
         displayListView();
@@ -57,6 +63,13 @@ public class MenuActivity extends AppCompatActivity {
         if(platoList==null){
             Toast.makeText(this,"_________________ERRROR________________",Toast.LENGTH_LONG).show();
         }
+
+        for(int k = 0; k < platoList.size(); k++){
+            Plato p = platoList.get(k);
+            p.setMarcado(false);
+            platoList.set(k, p);
+        }
+
 
         //create an ArrayAdaptar from the String Array
         dataAdapter = new MyCustomAdapter(this, R.layout.plato_info, platoList);
@@ -222,7 +235,9 @@ public class MenuActivity extends AppCompatActivity {
                         id_platos,
                         mesa,cantidad_platos,
                         new BufferedReader(new InputStreamReader(socket.getInputStream())));
-                Bar.getInstance().setOcupado(mesa,true);
+                if(estadoPed.equals(Mensajes.Comandos.PEDIDO_OK)) {
+                    Bar.getInstance().setOcupado(mesa, true);
+                }
                 socket.close();
                 return estadoPed;
             }catch (UnknownHostException ex) {
