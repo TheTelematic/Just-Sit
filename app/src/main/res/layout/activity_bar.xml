@@ -30,7 +30,7 @@
 
     </LinearLayout>
 
-    <ListView android:id="@+id/listView1" android:layout_width="fill_parent"
+    <ListView android:id="@+id/listView2" android:layout_width="fill_parent"
         android:layout_height="552dp" />
 
 </LinearLayout>
