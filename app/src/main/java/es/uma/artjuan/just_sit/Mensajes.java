@@ -8,7 +8,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import static android.R.string.ok;
-import static es.uma.artjuan.just_sit.Pedidos.getMesas;
 
 /**
  * Created by arthur on 07/05/2017.
@@ -188,25 +187,31 @@ public class Mensajes {
             out.newLine();
             out.write(String.valueOf(bar_id));
             out.newLine();
+            out.flush();
 
             String ok = in.readLine();
 
-            if(!ok.equals("OK - "+Comandos.RGETPEDIDOS)){
+            if(!ok.equals("OK - "+ Comandos.RGETPEDIDOS)){
                 return false;
             }
 
             int n_mesas = Integer.parseInt(in.readLine());
-
+            System.out.println("----> " + n_mesas);
             for(int k = 0; k < n_mesas; k++){
 
                 int num_mesa = Integer.parseInt(in.readLine());
+                System.out.println("----> " + num_mesa);
                 String contenido = "";
-                if(in.readLine().equals(Comandos.START_PEDIDOS)){
+                String linea = in.readLine();
+                System.out.println("----> " + linea);
+                if(linea.equals(Comandos.START_PEDIDOS)){
 
-                    String linea = in.readLine();
+                    linea = in.readLine();
+                    System.out.println("----> " + linea);
                     while(!linea.equals(Comandos.END_PEDIDOS)){
                         contenido += linea;
                         linea = in.readLine();
+                        System.out.println("----> " + linea);
                     }
 
                 }else{
@@ -218,14 +223,15 @@ public class Mensajes {
                 Mesa m = new Mesa(num_mesa);
                 m.addContenidoPedido(contenido);
 
-                Pedidos.saveMesa(m);
+                Pedidos pedidos = Pedidos.getInstance();
+                pedidos.saveMesa(m);
 
 
             }
 
             System.out.println("PEDIDOS DEL BAR");
-
-            for(Mesa m: Pedidos.getMesas()){
+            Pedidos pedidos = Pedidos.getInstance();
+            for(Mesa m: pedidos.getMesas()){
                 System.out.println("Mesa " + m.getNum_mesa());
                 System.out.println("--------------------------------------------------");
                 System.out.println("Contenido: " + m.getPlatos());
@@ -253,6 +259,7 @@ public class Mensajes {
             out.newLine();
             out.write(String.valueOf(nmesas));
             out.newLine();
+            out.flush();
 
             mesasint = in.readLine();
         }catch(IOException e){

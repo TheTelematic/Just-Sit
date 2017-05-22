@@ -1,5 +1,6 @@
 package es.uma.artjuan.just_sit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static es.uma.artjuan.just_sit.R.id.mesa;
@@ -10,11 +11,11 @@ import static es.uma.artjuan.just_sit.R.id.mesa;
 
 public class Pedidos {
 
-    private static List<Mesa> mesas;
+    private List<Mesa> mesas;
     private static Pedidos singleton = null;
 
     protected Pedidos() {
-        this.mesas = null;
+        this.mesas = new ArrayList<>();
     }
 
     public static Pedidos getInstance(){
@@ -25,15 +26,17 @@ public class Pedidos {
         return singleton;
     }
 
-    public static List<Mesa> getMesas() {
+    public List<Mesa> getMesas() {
         return mesas;
     }
 
-    public static void setMesas(List<Mesa> mesas) {
-        Pedidos.mesas = mesas;
+    public void setMesas(List<Mesa> mesas) {
+        this.mesas = mesas;
     }
 
-    public static void saveMesa(Mesa m){
+    public void saveMesa(Mesa m){
+
+
 
         int k = 0;
         while (k < mesas.size()){

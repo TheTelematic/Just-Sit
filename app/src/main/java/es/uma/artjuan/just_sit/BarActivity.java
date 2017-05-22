@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,7 +22,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 import java.util.ArrayList;
+
+import static android.R.attr.value;
 
 public class BarActivity extends AppCompatActivity {
     private MesaAdapter dataAdapter = null;
@@ -29,6 +38,9 @@ public class BarActivity extends AppCompatActivity {
     private Button intMesas;
     private Bar bar;
     private ArrayList<String> mesaList = new ArrayList<>();
+    private Button actualizar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +52,16 @@ public class BarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new IntMesasDialog().show(getFragmentManager(), "IntMesasDialog");
+            }
+        });
+
+        actualizar = (Button) findViewById(R.id.actualizar);
+
+        actualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
+                myATaskmenu.execute();
             }
         });
 
@@ -108,6 +130,54 @@ public class BarActivity extends AppCompatActivity {
         }
     }
 
+    public void actualizarPedidos(View view){
 
+        MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
+        myATaskmenu.execute();
+
+
+    }
+
+    private class MyATaskACTUALIZAR extends AsyncTask<ArrayList<Plato>,Void,String> {
+
+
+        @Override
+        protected String doInBackground(ArrayList<Plato>... params) {
+            try {
+                System.out.println("DEBUG 1");
+                Socket socket = new Socket(ServerInfo.getInstance().getAddress(), ServerInfo.getInstance().getPort());
+                System.out.println("DEBUG 2");
+                Mensajes m = new Mensajes();
+                System.out.println("DEBUG 2.5");
+
+                if(m.getPedidos(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
+                        Bar.getInstance().getId(),
+                        new BufferedReader(new InputStreamReader(socket.getInputStream())))){
+                    System.out.println("DEBUG 3 TRUE");
+                }else{
+                    System.out.println("DEBUG 3 FALSE");
+                }
+
+                System.out.println("DEBUG 4");
+
+                return "TRUE;";
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+
+        }
+
+        @Override
+        protected void onPostExecute(String value){
+
+        }
+    }
 
 }
