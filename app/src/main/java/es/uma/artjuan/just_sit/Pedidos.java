@@ -42,12 +42,7 @@ public class Pedidos {
 
                 Mesa tmp = mesas.get(k);
 
-                for(Plato p : m.getPlatos()){
-
-                    tmp.savePlato(p);
-
-
-                }
+                tmp.addContenidoPedido(m.getPlatos());
 
                 mesas.set(k, tmp);
                 break;
