@@ -57,7 +57,7 @@ public class Bar {
         return nmesas;
     }
 
-    public String setNmesas(int nmesas){
+    public void setNmesas(int nmesas){
 
         this.nmesas = nmesas;/*
 
