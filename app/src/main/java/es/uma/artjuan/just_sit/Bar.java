@@ -38,8 +38,6 @@ public class Bar {
     }
 
 
-
-
     protected Bar(){
         nmesas = 10;
         ocupado =new ArrayList<Boolean>(Arrays.asList(new Boolean[nmesas]));
@@ -59,7 +57,7 @@ public class Bar {
 
     public void setNmesas(int nmesas){
 
-        this.nmesas = nmesas;/*
+        this.nmesas = nmesas;
 
         String intmesas="";
         Mensajes m = new Mensajes();
@@ -71,22 +69,6 @@ public class Bar {
         }else{
             ocupado.subList(nmesas,this.nmesas).clear();
         }
-
-        try {
-            ServerInfo server = ServerInfo.getInstance();
-            Socket socket = new Socket(server.getAddress(), server.getPort());
-
-            intmesas=m.int_mesas(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),id,
-                    nmesas,
-                    new BufferedReader(new InputStreamReader(socket.getInputStream())));
-
-            this.nmesas = nmesas;
-
-
-        }catch (IOException ex) {
-            Log.e("E/TCP Client", "" + ex.getMessage());
-        }
-        return intmesas;*/
     }
 
     public void setOcupado(int p, boolean estado){

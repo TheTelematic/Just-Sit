@@ -34,6 +34,8 @@ import es.uma.artjuan.just_sit.R;
 public class IntMesasDialog extends DialogFragment {
 
     private String intmesas="";
+    private EditText edit;
+    private ServerInfo server;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return createIntMesas();
@@ -45,26 +47,79 @@ public class IntMesasDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View v = inflater.inflate(R.layout.dialog_intmesas, null);
-
+        edit =(EditText)v.findViewById(R.id.mesas_input);
         builder.setView(v);
 
-
+        server = ServerInfo.getInstance();
         Button signin = (Button) v.findViewById(R.id.entrar_boton);
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText edit=(EditText)v.findViewById(R.id.mesas_input);
-                intmesas=Bar.getInstance().setNmesas(Integer.parseInt(edit.getText().toString()));
-                if(!intmesas.equals(Mensajes.Comandos.MESAS_OK)){
-                    Toast.makeText(getActivity(), "Error al introducir mesas.", Toast.LENGTH_SHORT).show();
-                }
+                String tmp = edit.getText().toString();
+                MyATaskIntMesas myATaskmenu = new MyATaskIntMesas();
+                myATaskmenu.execute(tmp);
+
+
                 dismiss();
             }
         });
         return builder.create();
     }
+    private class MyATaskIntMesas extends AsyncTask<String,Void,String> {
 
+        ProgressDialog progressDialog;
+        String estadoPed="";
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setTitle("Conectando al servidor");
+            progressDialog.setMessage("Espera por favor...");
+            progressDialog.show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... values){
+
+            try {
+                Socket socket = new Socket(server.getAddress(), server.getPort());
+                Mensajes m = new Mensajes();
+
+
+                    intmesas=m.int_mesas(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),Bar.getInstance().getId(),
+                            Integer.parseInt(values[0]),
+                            new BufferedReader(new InputStreamReader(socket.getInputStream())));
+                    System.out.println("EASFASEFSAEFASF_____________________________________________SAFDFASDFASDFASDFASDF");
+                    Bar.getInstance().setNmesas(Integer.parseInt(values[0]));
+
+                    socket.close();
+                    return intmesas;
+
+            }catch (UnknownHostException ex) {
+                Log.e("E/TCP Client", "" + ex.getMessage());
+                return ex.getMessage();
+            } catch (IOException ex) {
+                Log.e("E/TCP Client", "" + ex.getMessage());
+                return ex.getMessage();
+            }catch (NullPointerException e){
+                e.printStackTrace();
+                return e.getMessage();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String value){
+            progressDialog.dismiss();//oculta ventana emergente
+
+            Toast.makeText(getActivity(),"todo ok", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
 
 
 }
