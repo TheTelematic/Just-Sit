@@ -5,6 +5,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static android.R.string.ok;
+import static es.uma.artjuan.just_sit.Pedidos.getMesas;
+
 /**
  * Created by arthur on 07/05/2017.
  */
@@ -26,6 +29,8 @@ public class Mensajes {
         public static final String PEDIDO = "PEDIDO";
         public static final String PEDIDO_OK = "PEDIDO_OK";
         public static final String RCOMPARA_NOVERIFICADO_BAR = "RCOMPARA_NOVERIFICADO_BAR";
+        public static final String GETPEDIDOS = "GETPEDIDOS";
+        public static final String RGETPEDIDOS = "RGETPEDIDOS";
 
     }
 
@@ -163,10 +168,56 @@ public class Mensajes {
         return estadoPed;
     }
 
-    public Pedidos getPedidos(){
+    public boolean getPedidos(BufferedWriter out, int bar_id, BufferedReader in){
+
+        try{
+
+            out.write(Comandos.GETPEDIDOS);
+            out.newLine();
+            out.write(String.valueOf(bar_id));
+            out.newLine();
+
+            String ok = in.readLine();
+
+            if(!ok.equals("OK - "+Comandos.RGETPEDIDOS)){
+                return false;
+            }
+
+            int n_mesas = Integer.parseInt(in.readLine());
+
+            for(int k = 0; k < n_mesas; k++){
+
+                int num_mesa = Integer.parseInt(in.readLine());
+
+                String contenido = in.readLine();
+
+                Mesa m = new Mesa(num_mesa);
+                m.addContenidoPedido(contenido);
+
+                Pedidos.saveMesa(m);
 
 
-        return null;
+            }
+
+            System.out.println("PEDIDOS DEL BAR");
+
+            for(Mesa m: Pedidos.getMesas()){
+                System.out.println("Mesa " + m.getNum_mesa());
+                System.out.println("--------------------------------------------------");
+                System.out.println("Contenido: " + m.getPlatos());
+                System.out.println("--------------------------------------------------");
+
+            }
+
+
+
+            return true;
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+        return false;
     }
 
 }

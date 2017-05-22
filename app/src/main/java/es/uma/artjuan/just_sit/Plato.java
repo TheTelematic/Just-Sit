@@ -1,7 +1,7 @@
 package es.uma.artjuan.just_sit;
 
 /**
- * Created by Juanca on 10/05/2017.
+ * Created by Juanca y Arturo on 10/05/2017.
  */
 
 public class Plato {
@@ -15,6 +15,7 @@ public class Plato {
         return cantidad;
     }
 
+    // Se supone que si ya existe una instancia de esta clase, este metodo ahorra la actualizacion manual
     public void setCantidad(int cantidad) {
         this.cantidad += cantidad;
     }

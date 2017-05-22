@@ -2,34 +2,66 @@ package es.uma.artjuan.just_sit;
 
 import java.util.List;
 
+import static es.uma.artjuan.just_sit.R.id.mesa;
+
 /**
  * Created by artur on 18/05/2017.
  */
 
 public class Pedidos {
-    private List<Plato> platos;
-    private int mesa;
-    private boolean pagado;
 
-    public Pedidos(List<Plato> platos, int mesa, boolean pagado) {
-        this.platos = platos;
-        this.mesa = mesa;
-        this.pagado = pagado;
+    private static List<Mesa> mesas;
+    private static Pedidos singleton = null;
+
+    protected Pedidos() {
+        this.mesas = null;
     }
 
-    public int getMesa() {
-        return mesa;
+    public static Pedidos getInstance(){
+        if(singleton == null){
+            singleton = new Pedidos();
+        }
+
+        return singleton;
     }
 
-    public void setMesa(int mesa) {
-        this.mesa = mesa;
+    public static List<Mesa> getMesas() {
+        return mesas;
     }
 
-    public boolean isPagado() {
-        return pagado;
+    public static void setMesas(List<Mesa> mesas) {
+        Pedidos.mesas = mesas;
     }
 
-    public void setPagado(boolean pagado) {
-        this.pagado = pagado;
+    public static void saveMesa(Mesa m){
+
+        int k = 0;
+        while (k < mesas.size()){
+
+            if(mesas.get(k).getNum_mesa() == m.getNum_mesa()){
+
+                Mesa tmp = mesas.get(k);
+
+                for(Plato p : m.getPlatos()){
+
+                    tmp.savePlato(p);
+
+
+                }
+
+                mesas.set(k, tmp);
+                break;
+
+            }
+
+            k++;
+        }
+
+        if(k == mesas.size()){
+
+            mesas.add(m);
+
+        }
+
     }
 }
