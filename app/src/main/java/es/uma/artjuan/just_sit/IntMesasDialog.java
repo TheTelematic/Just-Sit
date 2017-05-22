@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import es.uma.artjuan.just_sit.Bar;
 import es.uma.artjuan.just_sit.R;
 
-import static android.R.id.edit;
-
 /**
  * Created by Juanca on 18/05/2017.
  */
@@ -36,7 +34,6 @@ import static android.R.id.edit;
 public class IntMesasDialog extends DialogFragment {
 
     private String intmesas="";
-    private EditText edit;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return createIntMesas();
@@ -48,7 +45,7 @@ public class IntMesasDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View v = inflater.inflate(R.layout.dialog_intmesas, null);
-        edit=(EditText)v.findViewById(R.id.mesas_input);
+
         builder.setView(v);
 
 
@@ -57,12 +54,9 @@ public class IntMesasDialog extends DialogFragment {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                int n_mesas = Integer.parseInt(edit.getText().toString());
-                System.out.println("Nº mesas: " + n_mesas);
-                intmesas=Bar.getInstance().setNmesas(n_mesas);
+                EditText edit=(EditText)v.findViewById(R.id.mesas_input);
+                intmesas=Bar.getInstance().setNmesas(Integer.parseInt(edit.getText().toString()));
                 if(!intmesas.equals(Mensajes.Comandos.MESAS_OK)){
-
                     Toast.makeText(getActivity(), "Error al introducir mesas.", Toast.LENGTH_SHORT).show();
                 }
                 dismiss();
