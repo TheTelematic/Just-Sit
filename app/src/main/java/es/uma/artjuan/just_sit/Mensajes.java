@@ -37,6 +37,7 @@ public class Mensajes {
         public static final String MESAS_OK = "SETMESAS_OK";
         public static final String START_PEDIDOS = "######START########";
         public static final String END_PEDIDOS = "######END########";
+        public static final String MESAS_NOOK = "MESAS_NOOK";
     }
 
     public boolean addnewuser(BufferedWriter out, String username, String password, String typeuser, BufferedReader in ){
