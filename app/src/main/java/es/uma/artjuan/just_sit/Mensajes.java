@@ -35,7 +35,8 @@ public class Mensajes {
         public static final String RGETPEDIDOS = "RGETPEDIDOS";
         public static final String SETMESAS = "SETMESAS";           //TODO: Comandos pa meter las mesas
         public static final String MESAS_OK = "SETMESAS_OK";
-
+        public static final String START_PEDIDOS = "######START########";
+        public static final String END_PEDIDOS = "######END########";
     }
 
     public boolean addnewuser(BufferedWriter out, String username, String password, String typeuser, BufferedReader in ){
@@ -192,8 +193,20 @@ public class Mensajes {
             for(int k = 0; k < n_mesas; k++){
 
                 int num_mesa = Integer.parseInt(in.readLine());
+                String contenido = "";
+                if(in.readLine().equals(Comandos.START_PEDIDOS)){
 
-                String contenido = in.readLine();
+                    String linea = in.readLine();
+                    while(!linea.equals(Comandos.END_PEDIDOS)){
+                        contenido += linea;
+                        linea = in.readLine();
+                    }
+
+                }else{
+                    System.out.println("ERROR - 00008");
+                    return false;
+                }
+
 
                 Mesa m = new Mesa(num_mesa);
                 m.addContenidoPedido(contenido);
@@ -224,10 +237,12 @@ public class Mensajes {
         return false;
     }
 
-    public String int_mesas(BufferedWriter out, int nmesas, BufferedReader in){     //TODO: Funcion pa meter las mesas
+    public String int_mesas(BufferedWriter out, int id_bar, int nmesas, BufferedReader in){     //TODO: Funcion pa meter las mesas
         String mesasint="";
         try {
             out.write(Comandos.SETMESAS);
+            out.newLine();
+            out.write(String.valueOf(id_bar));
             out.newLine();
             out.write(String.valueOf(nmesas));
             out.newLine();
