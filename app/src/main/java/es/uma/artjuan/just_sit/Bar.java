@@ -1,5 +1,14 @@
 package es.uma.artjuan.just_sit;
 
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,7 +43,10 @@ public class Bar {
         return nmesas;
     }
 
-    public void setNmesas(int nmesas){
+    public String setNmesas(int nmesas){
+        String intmesas="";
+        Mensajes m = new Mensajes();
+
         if(this.nmesas<nmesas) {
             for(int i = this.nmesas; i <= nmesas; i++){
                 ocupado.add(false);
@@ -43,7 +55,21 @@ public class Bar {
             ocupado.subList(nmesas,this.nmesas).clear();
         }
 
-        this.nmesas = nmesas;
+        try {
+            ServerInfo server = ServerInfo.getInstance();;
+            Socket socket = new Socket(server.getAddress(), server.getPort());
+
+            intmesas=m.int_mesas(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
+                    nmesas,
+                    new BufferedReader(new InputStreamReader(socket.getInputStream())));
+
+            this.nmesas = nmesas;
+
+
+        }catch (IOException ex) {
+            Log.e("E/TCP Client", "" + ex.getMessage());
+        }
+        return intmesas;
     }
 
     public void setOcupado(int p, boolean estado){

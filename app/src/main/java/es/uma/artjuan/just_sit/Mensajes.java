@@ -3,6 +3,8 @@ package es.uma.artjuan.just_sit;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import static android.R.string.ok;
@@ -31,6 +33,8 @@ public class Mensajes {
         public static final String RCOMPARA_NOVERIFICADO_BAR = "RCOMPARA_NOVERIFICADO_BAR";
         public static final String GETPEDIDOS = "GETPEDIDOS";
         public static final String RGETPEDIDOS = "RGETPEDIDOS";
+        public static final String SETMESAS = "SETMESAS";           //TODO: Comandos pa meter las mesas
+        public static final String MESAS_OK = "SETMESAS_OK";
 
     }
 
@@ -218,6 +222,21 @@ public class Mensajes {
 
 
         return false;
+    }
+
+    public String int_mesas(BufferedWriter out, int nmesas, BufferedReader in){     //TODO: Funcion pa meter las mesas
+        String mesasint="";
+        try {
+            out.write(Comandos.SETMESAS);
+            out.newLine();
+            out.write(String.valueOf(nmesas));
+            out.newLine();
+
+            mesasint = in.readLine();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return mesasint;
     }
 
 }

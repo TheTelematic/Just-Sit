@@ -48,12 +48,12 @@ public class BarActivity extends AppCompatActivity {
     private void displayListView() {
 
         for (int i = 0; i<bar.getInstance().getNmesas();i++){
-            mesaList.set(i,"Mesa: "+i);
+            mesaList.add("Mesa: "+String.valueOf(i+1));
         }
 
 
         dataAdapter = new MesaAdapter(this, R.layout.mesa_list, mesaList);
-        ListView listView = (ListView) findViewById(R.id.listView1);
+        ListView listView = (ListView) findViewById(R.id.listView2);
 
         listView.setAdapter(dataAdapter);
 
@@ -61,7 +61,8 @@ public class BarActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Llamar a la vista de esta mesa
-
+                Toast.makeText(getApplicationContext(),
+                        "Clicked on Row: " + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -105,6 +106,10 @@ public class BarActivity extends AppCompatActivity {
             return convertView;
 
         }
+    }
+
+    public static void showToast(){
+        Toast.makeText(this, "Error al introducir mesas.", Toast.LENGTH_SHORT).show();
     }
 
 }

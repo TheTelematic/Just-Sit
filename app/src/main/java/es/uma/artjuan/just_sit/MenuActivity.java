@@ -260,6 +260,7 @@ public class MenuActivity extends AppCompatActivity {
             if(estadoPed.equals("OK - " + Mensajes.Comandos.PEDIDO_OK)){
                 Intent intent = new Intent(context, PedidoActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
     }
