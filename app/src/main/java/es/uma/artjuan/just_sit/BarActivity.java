@@ -108,8 +108,6 @@ public class BarActivity extends AppCompatActivity {
         }
     }
 
-    public static void showToast(){
-        Toast.makeText(this, "Error al introducir mesas.", Toast.LENGTH_SHORT).show();
-    }
+
 
 }

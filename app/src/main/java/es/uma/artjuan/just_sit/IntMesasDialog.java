@@ -57,7 +57,8 @@ public class IntMesasDialog extends DialogFragment {
                 EditText edit=(EditText)v.findViewById(R.id.mesas_input);
                 intmesas=Bar.getInstance().setNmesas(Integer.parseInt(edit.getText().toString()));
                 if(!intmesas.equals(Mensajes.Comandos.MESAS_OK)){
-                    BarActivity.showToast();
+
+                    Toast.makeText(getActivity(), "Error al introducir mesas.", Toast.LENGTH_SHORT).show();
                 }
                 dismiss();
             }
