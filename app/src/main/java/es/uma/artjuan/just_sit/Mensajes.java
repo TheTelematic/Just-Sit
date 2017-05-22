@@ -86,10 +86,16 @@ public class Mensajes {
             out.flush();
 
             String tmp = in.readLine();
+            System.out.println("tmp: " + tmp);
+
 
             if(tmp.equals("OK - " + Comandos.RCOMPARA_OK_USUARIO)){
                 resultado = Comandos.TIPO_NORMAL;
             }else if(tmp.equals("OK - " + Comandos.RCOMPARA_OK_BAR)){
+                System.out.println("ES TIPO BAR");
+                tmp = in.readLine();
+                System.out.println("tmp: " + tmp);
+                Bar.getInstance().setId(Integer.parseInt(tmp));
                 resultado = Comandos.TIPO_BAR;
             }else if(tmp.equals("OK - " + Comandos.RCOMPARA_NOOK)){
                 System.out.println("USUARIO o CONTRASEÑA INCORRECTA");

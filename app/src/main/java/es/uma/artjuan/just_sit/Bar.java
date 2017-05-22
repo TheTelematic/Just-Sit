@@ -15,6 +15,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import static android.R.attr.id;
+import static android.R.attr.theme;
+
 /**
  * Created by Juanca on 17/05/2017.
  */
@@ -24,12 +27,23 @@ public class Bar {
     private int nmesas;
     private ArrayList<Boolean> ocupado;
     private static Bar instance = null;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
-    private Bar(){
+
+
+    protected Bar(){
         nmesas = 10;
         ocupado =new ArrayList<Boolean>(Arrays.asList(new Boolean[nmesas]));
-        Collections.fill(ocupado, Boolean.FALSE);;
+        Collections.fill(ocupado, Boolean.FALSE);
     }
 
     public static Bar getInstance() {
@@ -44,6 +58,9 @@ public class Bar {
     }
 
     public String setNmesas(int nmesas){
+
+        this.nmesas = nmesas;/*
+
         String intmesas="";
         Mensajes m = new Mensajes();
 
@@ -56,10 +73,10 @@ public class Bar {
         }
 
         try {
-            ServerInfo server = ServerInfo.getInstance();;
+            ServerInfo server = ServerInfo.getInstance();
             Socket socket = new Socket(server.getAddress(), server.getPort());
 
-            intmesas=m.int_mesas(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
+            intmesas=m.int_mesas(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),id,
                     nmesas,
                     new BufferedReader(new InputStreamReader(socket.getInputStream())));
 
@@ -69,7 +86,7 @@ public class Bar {
         }catch (IOException ex) {
             Log.e("E/TCP Client", "" + ex.getMessage());
         }
-        return intmesas;
+        return intmesas;*/
     }
 
     public void setOcupado(int p, boolean estado){
