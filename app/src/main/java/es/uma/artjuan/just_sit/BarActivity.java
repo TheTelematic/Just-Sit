@@ -39,6 +39,7 @@ public class BarActivity extends AppCompatActivity {
     private Bar bar;
     private ArrayList<String> mesaList = new ArrayList<>();
     private Button actualizar;
+    private int nmesas= 0;
 
 
     @Override
@@ -47,15 +48,19 @@ public class BarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bar);
 
         intMesas = (Button)findViewById(R.id.intmesas);
-
+        actualizar = (Button)findViewById(R.id.actualizar);
+        nmesas = Bar.getInstance().getNmesas();
         intMesas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new IntMesasDialog().show(getFragmentManager(), "IntMesasDialog");
+                //new IntMesasDialog().show(getFragmentManager(), "IntMesasDialog");
+
+                System.out.println("ASDFASDFA_SFASDF_ADFASDFASDF______________________________SADFASDFASDFA_SD_FAS_DF_ASF_DA");
+                actualizarMesas();
             }
         });
 
-        actualizar = (Button) findViewById(R.id.actualizar);
+
 
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,10 +126,11 @@ public class BarActivity extends AppCompatActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.mesa.setText(mesaList.get(position));
+            holder.mesa.setText("Mesa: "+(position+1));
+/*
             if(Bar.getInstance().getOcupado(position)) {
                 parent.getChildAt(position).setBackgroundColor(Color.RED);
-            }
+            }*/
             return convertView;
 
         }
@@ -178,6 +184,22 @@ public class BarActivity extends AppCompatActivity {
         protected void onPostExecute(String value){
 
         }
+    }
+
+    void actualizarMesas(){
+        if (nmesas < Bar.getInstance().getNmesas()) {
+            for (int i = nmesas; i < Bar.getInstance().getNmesas(); i++) {
+                mesaList.add("Mesa: " + i);
+                dataAdapter.notifyDataSetChanged();
+            }
+        }else{
+            for (int i = nmesas-1; i > 6; i--){
+                System.out.println("SDASDFASDFADSFASDF _____________________________________  "+i);
+                dataAdapter.remove(dataAdapter.getItem(i));
+                dataAdapter.notifyDataSetChanged();
+            }
+        }
+        nmesas = Bar.getInstance().getNmesas();
     }
 
 }

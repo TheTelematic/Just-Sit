@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,7 +61,6 @@ public class IntMesasDialog extends DialogFragment {
                 MyATaskIntMesas myATaskmenu = new MyATaskIntMesas();
                 myATaskmenu.execute(tmp);
 
-
                 dismiss();
             }
         });
@@ -74,11 +74,11 @@ public class IntMesasDialog extends DialogFragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(getActivity());
+            /*progressDialog = new ProgressDialog(getActivity());
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setTitle("Conectando al servidor");
             progressDialog.setMessage("Espera por favor...");
-            progressDialog.show();
+            progressDialog.show();*/
 
         }
 
@@ -90,10 +90,11 @@ public class IntMesasDialog extends DialogFragment {
                 Mensajes m = new Mensajes();
 
 
-                    intmesas=m.int_mesas(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),Bar.getInstance().getId(),
+                intmesas=m.int_mesas(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),Bar.getInstance().getId(),
                             Integer.parseInt(values[0]),
                             new BufferedReader(new InputStreamReader(socket.getInputStream())));
-                    System.out.println("EASFASEFSAEFASF_____________________________________________SAFDFASDFASDFASDFASDF");
+                System.out.println("EASFASEFSAEFASF_________________________SAFDFASDFASDFASDFASDF   " + values[0]);
+
                     Bar.getInstance().setNmesas(Integer.parseInt(values[0]));
 
                     socket.close();
@@ -113,9 +114,9 @@ public class IntMesasDialog extends DialogFragment {
 
         @Override
         protected void onPostExecute(String value){
-            progressDialog.dismiss();//oculta ventana emergente
+            //progressDialog.dismiss();//oculta ventana emergente
 
-            Toast.makeText(getActivity(),"todo ok", Toast.LENGTH_SHORT).show();
+
 
 
         }

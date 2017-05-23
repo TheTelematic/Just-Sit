@@ -39,7 +39,7 @@ public class Bar {
 
 
     protected Bar(){
-        nmesas = 10;
+        nmesas = 10;     //Todo: hacer el get de nmesas del bar de la base de datos.
         ocupado =new ArrayList<Boolean>(Arrays.asList(new Boolean[nmesas]));
         Collections.fill(ocupado, Boolean.FALSE);
     }
@@ -58,7 +58,7 @@ public class Bar {
     public void setNmesas(int nmesas){
 
         this.nmesas = nmesas;
-
+/*
         String intmesas="";
         Mensajes m = new Mensajes();
 
@@ -68,7 +68,7 @@ public class Bar {
             }
         }else{
             ocupado.subList(nmesas,this.nmesas).clear();
-        }
+        }*/
     }
 
     public void setOcupado(int p, boolean estado){
