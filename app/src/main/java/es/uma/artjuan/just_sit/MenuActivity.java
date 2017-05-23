@@ -143,6 +143,15 @@ public class MenuActivity extends AppCompatActivity {
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         valueList[position] = s.toString();
+                        Plato plato = (Plato) holder.name.getTag();
+                        if(valueList[position].equals("")){
+                            holder.name.setChecked(false);
+                            plato.setMarcado(false);
+                        }else{
+                            holder.name.setChecked(true);
+                            plato.setMarcado(true);
+                        }
+
                     }
 
                     @Override
@@ -176,10 +185,18 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                mesa = Integer.parseInt(nmesa.getText().toString());
+                String et = nmesa.getText().toString();
 
-                MyATaskMenu myATaskmenu = new MyATaskMenu();
-                myATaskmenu.execute(platoList);
+                if(et.equals("")){
+                    Toast.makeText(context, "Debe indicar una mesa", Toast.LENGTH_LONG).show();
+                }else{
+                    mesa = Integer.parseInt(et);
+
+                    MyATaskMenu myATaskmenu = new MyATaskMenu();
+                    myATaskmenu.execute(platoList);
+                }
+
+
 
             }
         });
@@ -255,7 +272,7 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
-            Toast.makeText(context,estadoPed,Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Oido cocina! Pedido realizado.",Toast.LENGTH_SHORT).show();
 
             if(estadoPed.equals("OK - " + Mensajes.Comandos.PEDIDO_OK)){
                 Intent intent = new Intent(context, PedidoActivity.class);

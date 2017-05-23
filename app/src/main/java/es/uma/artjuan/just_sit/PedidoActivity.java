@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import static java.lang.Math.round;
+
 public class PedidoActivity extends AppCompatActivity {
 
     private NestedScrollView nsv;
@@ -64,11 +66,12 @@ public class PedidoActivity extends AppCompatActivity {
 
         }
         cuenta.setText(contenido);
-        toolbar2.setTitle("Total: " + total + "€");
+        toolbar2.setTitle("Total: " + String.format("%.2f", total)  + "€");
     }
 
 
     public void pedirMas(View view){
         startActivity(new Intent(context, MenuActivity.class));
+        finish();
     }
 }
