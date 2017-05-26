@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context="es.uma.artjuan.just_sit.InicioActivity">
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:src="@drawable/js"
+        android:layout_alignParentTop="true" />
+
     <EditText
         android:id="@+id/nombre_t"
         android:layout_width="wrap_content"

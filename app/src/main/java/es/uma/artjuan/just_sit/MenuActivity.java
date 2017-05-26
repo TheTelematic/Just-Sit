@@ -275,8 +275,11 @@ public class MenuActivity extends AppCompatActivity {
             Toast.makeText(context,"Oido cocina! Pedido realizado.",Toast.LENGTH_SHORT).show();
 
             if(estadoPed.equals("OK - " + Mensajes.Comandos.PEDIDO_OK)){
+
                 Intent intent = new Intent(context, PedidoActivity.class);
                 startActivity(intent);
+               // platoList.clear();
+                //dataAdapter.notifyDataSetChanged();
                 finish();
             }
         }

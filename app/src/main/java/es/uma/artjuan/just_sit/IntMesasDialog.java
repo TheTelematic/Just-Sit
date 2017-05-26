@@ -1,9 +1,11 @@
 package es.uma.artjuan.just_sit;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +39,7 @@ public class IntMesasDialog extends DialogFragment {
     private String intmesas="";
     private EditText edit;
     private ServerInfo server;
+    private String tmp = "";
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return createIntMesas();
@@ -57,15 +60,25 @@ public class IntMesasDialog extends DialogFragment {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tmp = edit.getText().toString();
+                tmp = edit.getText().toString();
+
+                //dismiss();
+
                 MyATaskIntMesas myATaskmenu = new MyATaskIntMesas();
                 myATaskmenu.execute(tmp);
 
-                dismiss();
+
+                //dismiss();
+
+
             }
+
+
         });
+
         return builder.create();
     }
+
     private class MyATaskIntMesas extends AsyncTask<String,Void,String> {
 
         ProgressDialog progressDialog;
@@ -74,11 +87,11 @@ public class IntMesasDialog extends DialogFragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            /*progressDialog = new ProgressDialog(getActivity());
+            progressDialog = new ProgressDialog(getActivity());
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setTitle("Conectando al servidor");
             progressDialog.setMessage("Espera por favor...");
-            progressDialog.show();*/
+            progressDialog.show();
 
         }
 
@@ -91,14 +104,13 @@ public class IntMesasDialog extends DialogFragment {
 
 
                 intmesas=m.int_mesas(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),Bar.getInstance().getId(),
-                            Integer.parseInt(values[0]),
-                            new BufferedReader(new InputStreamReader(socket.getInputStream())));
-                System.out.println("EASFASEFSAEFASF_________________________SAFDFASDFASDFASDFASDF   " + values[0]);
+                        Integer.parseInt(values[0]),
+                        new BufferedReader(new InputStreamReader(socket.getInputStream())));
 
-                    Bar.getInstance().setNmesas(Integer.parseInt(values[0]));
+                Bar.getInstance().setNmesas(Integer.parseInt(values[0]));
 
-                    socket.close();
-                    return intmesas;
+                socket.close();
+                return intmesas;
 
             }catch (UnknownHostException ex) {
                 Log.e("E/TCP Client", "" + ex.getMessage());
@@ -114,10 +126,10 @@ public class IntMesasDialog extends DialogFragment {
 
         @Override
         protected void onPostExecute(String value){
-            //progressDialog.dismiss();//oculta ventana emergente
-
-
-
+            progressDialog.dismiss();//oculta ventana emergente
+            ((BarActivity)getActivity()).actualizarMesas(Integer.parseInt(tmp));
+            //((BarActivity)getActivity()).actualizarMesas(Integer.parseInt(tmp));
+            dismiss();
 
         }
     }

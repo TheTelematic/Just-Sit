@@ -18,10 +18,10 @@
     <string name="entrar_boton">ENTRAR</string>
 
 
-
-
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_pedido">PedidoActivity</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_bar_pedido">BarPedidoActivity</string>
+
 </resources>

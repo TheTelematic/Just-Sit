@@ -1,5 +1,6 @@
 package es.uma.artjuan.just_sit;
 
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +8,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +20,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import static android.R.attr.listChoiceBackgroundIndicator;
 import static android.R.attr.value;
 
 public class BarActivity extends AppCompatActivity {
@@ -53,10 +53,7 @@ public class BarActivity extends AppCompatActivity {
         intMesas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new IntMesasDialog().show(getFragmentManager(), "IntMesasDialog");
-
-                System.out.println("ASDFASDFA_SFASDF_ADFASDFASDF______________________________SADFASDFASDFA_SD_FAS_DF_ASF_DA");
-                actualizarMesas();
+                new IntMesasDialog().show(getFragmentManager(), "IntMesasDialog");
             }
         });
 
@@ -78,7 +75,6 @@ public class BarActivity extends AppCompatActivity {
             mesaList.add("Mesa: "+String.valueOf(i+1));
         }
 
-
         dataAdapter = new MesaAdapter(this, R.layout.mesa_list, mesaList);
         ListView listView = (ListView) findViewById(R.id.listView2);
 
@@ -87,9 +83,11 @@ public class BarActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 //TODO: Llamar a la vista de esta mesa
-                Toast.makeText(getApplicationContext(),
-                        "Clicked on Row: " + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, BarPedidoActivity.class);
+                intent.putExtra("numeroMesa",(position+1));
+                startActivity(intent);
             }
         });
 
@@ -103,6 +101,7 @@ public class BarActivity extends AppCompatActivity {
             super(context, textViewResourceId, mesaList);
             this.mesaList = new ArrayList<String>();
             this.mesaList.addAll(mesaList);
+
         }
 
         private class ViewHolder {
@@ -126,22 +125,27 @@ public class BarActivity extends AppCompatActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.mesa.setText("Mesa: "+(position+1));
-/*
+            System.out.println("____DSAFASDFSDAFAD_________________________Position: "+ position);
+            System.out.println("____DSAFASDFSDAFAD_________________________Tamaño: "+ this.mesaList.size());
+            //holder.mesa.setText("Mesa: "+ String.valueOf(position+1) +" "+Bar.getInstance().getOcupado(position));
+
             if(Bar.getInstance().getOcupado(position)) {
-                parent.getChildAt(position).setBackgroundColor(Color.RED);
-            }*/
+                holder.mesa.setText("Mesa: "+ String.valueOf(position+1)+"          OCUPADA");
+            }else{
+                holder.mesa.setText("Mesa: "+ String.valueOf(position+1)+"          LIBRE");
+            }
+
             return convertView;
 
         }
+
     }
 
-    public void actualizarPedidos(View view){
 
+
+    public void actualizarPedidos(View view){
         MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
         myATaskmenu.execute();
-
-
     }
 
     private class MyATaskACTUALIZAR extends AsyncTask<ArrayList<Plato>,Void,String> {
@@ -186,20 +190,26 @@ public class BarActivity extends AppCompatActivity {
         }
     }
 
-    void actualizarMesas(){
-        if (nmesas < Bar.getInstance().getNmesas()) {
-            for (int i = nmesas; i < Bar.getInstance().getNmesas(); i++) {
-                mesaList.add("Mesa: " + i);
+    public void actualizarMesas(int n){
+        nmesas=this.mesaList.size();
+        if (nmesas < n) {
+            for (int i =nmesas ; i <n; i++) {
+                //mesaList.add("Mesa: " + i);
+                mesaList.add("Mesa: "+i);
+                //dataAdapter.add("Mesa: "+i);
                 dataAdapter.notifyDataSetChanged();
             }
-        }else{
-            for (int i = nmesas-1; i > 6; i--){
-                System.out.println("SDASDFASDFADSFASDF _____________________________________  "+i);
-                dataAdapter.remove(dataAdapter.getItem(i));
+        }else if(nmesas > n){
+            for (int i = nmesas-1; i >= n; i--){
+                mesaList.remove(i);
                 dataAdapter.notifyDataSetChanged();
             }
         }
+        for (int i=0; i < mesaList.size(); i++) {
+            System.out.println(mesaList.get(i));
+        }
         nmesas = Bar.getInstance().getNmesas();
     }
-
+/*
+    */
 }
