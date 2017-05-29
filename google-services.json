@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "318333977964",
+    "firebase_url": "https://barnotificaciones.firebaseio.com",
+    "project_id": "barnotificaciones",
+    "storage_bucket": "barnotificaciones.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318333977964:android:55540b20c17cbe87",
+        "android_client_info": {
+          "package_name": "es.uma.artjuan.just_sit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318333977964-a3jk166v37urs8jh3s5dn37uscgt2k7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT2Li5Vig_WzA7rNMlaUFmYZ7uUk8MZ5M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

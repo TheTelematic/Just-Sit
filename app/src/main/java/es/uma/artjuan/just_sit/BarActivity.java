@@ -20,6 +20,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -144,8 +147,8 @@ public class BarActivity extends AppCompatActivity {
 
 
     public void actualizarPedidos(View view){
-        MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
-        myATaskmenu.execute();
+         //MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
+        //myATaskmenu.execute();
     }
 
     private class MyATaskACTUALIZAR extends AsyncTask<ArrayList<Plato>,Void,String> {

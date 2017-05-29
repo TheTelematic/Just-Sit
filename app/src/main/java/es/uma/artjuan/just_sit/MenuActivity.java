@@ -1,11 +1,14 @@
 package es.uma.artjuan.just_sit;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +23,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.firebase.client.Firebase;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -28,12 +34,15 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MenuActivity extends AppCompatActivity {
     private static int mesa=0;
     private EditText nmesa;
     private Context context=this;
     private ServerInfo server;
+    private static String FIREBASE_URL = "https://barnotificaciones.firebaseio.com/";
     private MyCustomAdapter dataAdapter = null;
     private ArrayList<Plato> platoList = new ArrayList<>();
     private String[] valueList= new String[Menu.getTam()];
@@ -203,6 +212,17 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    public static void sendNotificationToUser(String user, final String message) {
+        Firebase ref = new Firebase(FIREBASE_URL);
+        final Firebase notifications = ref.child("notificationRequests");
+
+        Map notification = new HashMap<>();
+        notification.put("username", user);
+        notification.put("message", message);
+
+        notifications.push().setValue(notification);
+    }
+
     private class MyATaskMenu extends AsyncTask<ArrayList<Plato>,Void,String> {
 
         ProgressDialog progressDialog;
@@ -272,10 +292,11 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
-            Toast.makeText(context,"Oido cocina! Pedido realizado.",Toast.LENGTH_SHORT).show();
+
 
             if(estadoPed.equals("OK - " + Mensajes.Comandos.PEDIDO_OK)){
-
+                Toast.makeText(context,"Oido cocina! Pedido realizado.",Toast.LENGTH_SHORT).show();
+                sendNotificationToUser("puf", "Hi there puf!");
                 Intent intent = new Intent(context, PedidoActivity.class);
                 startActivity(intent);
                // platoList.clear();

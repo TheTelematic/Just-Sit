@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 public class BarPedidoActivity extends AppCompatActivity {
 
     @Override
@@ -21,8 +23,12 @@ public class BarPedidoActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+
+                System.out.println( "_afsdfASDFASDFASDF_____________________________________________Token actualizado: " + refreshedToken);
+
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                 //       .setAction("Action", null).show();
             }
         });
 

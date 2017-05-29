@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="180dp"
         android:src="@drawable/js"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"/>
 
     <EditText
         android:id="@+id/nombre_t"
@@ -23,7 +24,7 @@
         android:inputType="textPersonName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="230dp"/>
 
     <EditText
         android:id="@+id/pass_t"
