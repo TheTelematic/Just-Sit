@@ -24,7 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
+//import com.firebase.client.Firebase;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -211,7 +211,7 @@ public class MenuActivity extends AppCompatActivity {
         });
 
     }
-
+/*
     public static void sendNotificationToUser(String user, final String message) {
         Firebase ref = new Firebase(FIREBASE_URL);
         final Firebase notifications = ref.child("notificationRequests");
@@ -222,7 +222,7 @@ public class MenuActivity extends AppCompatActivity {
 
         notifications.push().setValue(notification);
     }
-
+*/
     private class MyATaskMenu extends AsyncTask<ArrayList<Plato>,Void,String> {
 
         ProgressDialog progressDialog;
@@ -296,7 +296,7 @@ public class MenuActivity extends AppCompatActivity {
 
             if(estadoPed.equals("OK - " + Mensajes.Comandos.PEDIDO_OK)){
                 Toast.makeText(context,"Oido cocina! Pedido realizado.",Toast.LENGTH_SHORT).show();
-                sendNotificationToUser("puf", "Hi there puf!");
+                //sendNotificationToUser("puf", "Hi there puf!");
                 Intent intent = new Intent(context, PedidoActivity.class);
                 startActivity(intent);
                // platoList.clear();
