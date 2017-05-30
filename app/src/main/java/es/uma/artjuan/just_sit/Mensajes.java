@@ -169,6 +169,7 @@ public class Mensajes {
                 out.newLine();
                 out.flush();
             }
+            System.out.print("Esperando confirmacion de recepcion...\n");
             estadoPed=in.readLine();
 
         } catch (IOException e) {

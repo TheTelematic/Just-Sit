@@ -31,11 +31,15 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.R.attr.port;
 
 public class MenuActivity extends AppCompatActivity {
     private static int mesa=0;
@@ -243,7 +247,8 @@ public class MenuActivity extends AppCompatActivity {
         protected String doInBackground(ArrayList<Plato>... values){
 
             try {
-                Socket socket = new Socket(server.getAddress(), server.getPort());
+                Socket socket = new Socket();
+                socket.connect(new InetSocketAddress(server.getAddress(), server.getPort()), 2000);
                 Mensajes m = new Mensajes();
 
                 ArrayList<String> id_platos = new ArrayList<>();
@@ -267,11 +272,12 @@ public class MenuActivity extends AppCompatActivity {
                 }
 
 
-
+                System.out.print("Haciendo pedido...\n");
                 estadoPed= m.hacerPedido(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),
                         id_platos,
                         mesa,cantidad_platos,
                         new BufferedReader(new InputStreamReader(socket.getInputStream())));
+                System.out.print("Pedido hecho...\n");
                 if(estadoPed.equals(Mensajes.Comandos.PEDIDO_OK)) {
                     Bar.getInstance().setOcupado(mesa, true);
                 }
@@ -280,6 +286,11 @@ public class MenuActivity extends AppCompatActivity {
             }catch (UnknownHostException ex) {
                 Log.e("E/TCP Client", "" + ex.getMessage());
                 return ex.getMessage();
+            } catch (SocketTimeoutException e){
+                e.printStackTrace();
+                System.out.print("TIMEOUT\n");
+
+                return e.getMessage();
             } catch (IOException ex) {
                 Log.e("E/TCP Client", "" + ex.getMessage());
                 return ex.getMessage();
@@ -302,6 +313,9 @@ public class MenuActivity extends AppCompatActivity {
                // platoList.clear();
                 //dataAdapter.notifyDataSetChanged();
                 finish();
+            }else{
+                //Toast.makeText(context,"¿Que demonios ha pasado?",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"El servidor se esta tomando un cafe, vuelve a intentarlo mas tarde",Toast.LENGTH_SHORT).show();
             }
         }
     }

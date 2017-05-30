@@ -1,6 +1,6 @@
 package es.uma.artjuan.just_sit;
 
-import android.content.Context;
+import android.content.Context;/*
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -14,6 +14,10 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+/*
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
@@ -24,3 +28,4 @@ public class ExampleInstrumentedTest {
         assertEquals("es.uma.artjuan.just_sit", appContext.getPackageName());
     }
 }
+*/
