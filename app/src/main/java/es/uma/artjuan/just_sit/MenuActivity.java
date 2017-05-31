@@ -1,11 +1,13 @@
 package es.uma.artjuan.just_sit;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -26,6 +28,9 @@ import android.widget.Toast;
 
 //import com.firebase.client.Firebase;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -44,12 +49,15 @@ import static android.R.attr.port;
 public class MenuActivity extends AppCompatActivity {
     private static int mesa=0;
     private EditText nmesa;
+    //private Activity activity = getActivity();
     private Context context=this;
+    private Context contentTxt;
     private ServerInfo server;
     private static String FIREBASE_URL = "https://barnotificaciones.firebaseio.com/";
     private MyCustomAdapter dataAdapter = null;
     private ArrayList<Plato> platoList = new ArrayList<>();
     private String[] valueList= new String[Menu.getTam()];
+    //private Button floatingAddButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +77,7 @@ public class MenuActivity extends AppCompatActivity {
         checkButtonClick();
 
     }
+
 
     private void displayListView() {
 
@@ -248,7 +257,7 @@ public class MenuActivity extends AppCompatActivity {
 
             try {
                 Socket socket = new Socket();
-                socket.connect(new InetSocketAddress(server.getAddress(), server.getPort()), 2000);
+                socket.connect(new InetSocketAddress(server.getAddress(), server.getPort()), 4000);
                 Mensajes m = new Mensajes();
 
                 ArrayList<String> id_platos = new ArrayList<>();
@@ -304,7 +313,6 @@ public class MenuActivity extends AppCompatActivity {
         protected void onPostExecute(String value){
             progressDialog.dismiss();//oculta ventana emergente
 
-
             if(estadoPed.equals("OK - " + Mensajes.Comandos.PEDIDO_OK)){
                 Toast.makeText(context,"Oido cocina! Pedido realizado.",Toast.LENGTH_SHORT).show();
                 //sendNotificationToUser("puf", "Hi there puf!");
@@ -319,4 +327,5 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
     }
+
 }

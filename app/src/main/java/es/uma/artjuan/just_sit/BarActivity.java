@@ -128,8 +128,7 @@ public class BarActivity extends AppCompatActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            System.out.println("____DSAFASDFSDAFAD_________________________Position: "+ position);
-            System.out.println("____DSAFASDFSDAFAD_________________________Tamaño: "+ this.mesaList.size());
+
             //holder.mesa.setText("Mesa: "+ String.valueOf(position+1) +" "+Bar.getInstance().getOcupado(position));
 
             if(Bar.getInstance().getOcupado(position)) {
