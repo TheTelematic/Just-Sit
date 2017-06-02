@@ -197,22 +197,24 @@ public class Mensajes {
             }
 
             int n_mesas = Integer.parseInt(in.readLine());
-            System.out.println("----> " + n_mesas);
+            //System.out.println("----> " + n_mesas);
+            String contenido;
+            String linea;
             for(int k = 0; k < n_mesas; k++){
 
                 int num_mesa = Integer.parseInt(in.readLine());
-                System.out.println("----> " + num_mesa);
-                String contenido = "";
-                String linea = in.readLine();
-                System.out.println("----> " + linea);
+                //System.out.println("----> " + num_mesa);
+                contenido = "";
+                linea = in.readLine();
+                //System.out.println("----> " + linea);
                 if(linea.equals(Comandos.START_PEDIDOS)){
 
                     linea = in.readLine();
-                    System.out.println("----> " + linea);
+                    //System.out.println("----> " + linea);
                     while(!linea.equals(Comandos.END_PEDIDOS)){
-                        contenido += linea;
+                        contenido += linea + "\r\n";
                         linea = in.readLine();
-                        System.out.println("----> " + linea);
+                        //System.out.println("----> " + linea);
                     }
 
                 }else{
@@ -221,24 +223,45 @@ public class Mensajes {
                 }
 
 
-                Mesa m = new Mesa(num_mesa);
-                m.addContenidoPedido(contenido);
+
+
+
+
+
 
                 Pedidos pedidos = Pedidos.getInstance();
-                pedidos.saveMesa(m);
+                Mesa m;
+                int size = pedidos.getMesas().size();
+                if(( size > 0) && (size > num_mesa)){
+                    if( ! pedidos.getMesas().get(num_mesa).getPlatos().equals(contenido)){
+                        System.out.println("(" + size + ") Actualizando pedido de la " + num_mesa);
+                        m = new Mesa(num_mesa + 1);
+                        m.addContenidoPedido(contenido);
+                        pedidos.saveMesa(m);
+                    }
+
+
+                }else if(size <= num_mesa){
+                    System.out.println("(" + size + ") Nuevo pedido de la " + num_mesa);
+                    m = new Mesa(num_mesa + 1);
+                    m.addContenidoPedido(contenido);
+                    pedidos.saveMesa(m);
+                }
+
 
 
             }
 
-            System.out.println("PEDIDOS DEL BAR");
+            /*System.out.println("PEDIDOS DEL BAR");
             Pedidos pedidos = Pedidos.getInstance();
             for(Mesa m: pedidos.getMesas()){
                 System.out.println("Mesa " + m.getNum_mesa());
                 System.out.println("--------------------------------------------------");
-                System.out.println("Contenido: " + m.getPlatos());
+                System.out.println("Contenido: ");
+                System.out.println(m.getPlatos());
                 System.out.println("--------------------------------------------------");
 
-            }
+            }*/
 
 
 

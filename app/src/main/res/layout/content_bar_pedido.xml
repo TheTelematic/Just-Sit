@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_bar_pedido">
 
     <TextView
+        android:id="@+id/contenido_pedido_mesa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin" />

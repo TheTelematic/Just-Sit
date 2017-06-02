@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="actualizarPedidos"
-                android:text="Actualizar" />
+                android:text="Actualizar"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/intmesas"

@@ -31,6 +31,8 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.R.attr.listChoiceBackgroundIndicator;
 import static android.R.attr.value;
@@ -41,7 +43,7 @@ public class BarActivity extends AppCompatActivity {
     private Button intMesas;
     private Bar bar;
     private ArrayList<String> mesaList = new ArrayList<>();
-    private Button actualizar;
+    //private Button actualizar;
     private int nmesas= 0;
 
 
@@ -51,7 +53,7 @@ public class BarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bar);
 
         intMesas = (Button)findViewById(R.id.intmesas);
-        actualizar = (Button)findViewById(R.id.actualizar);
+        //actualizar = (Button)findViewById(R.id.actualizar);
         nmesas = Bar.getInstance().getNmesas();
         intMesas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,15 +64,37 @@ public class BarActivity extends AppCompatActivity {
 
 
 
-        actualizar.setOnClickListener(new View.OnClickListener() {
+        /*actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
                 myATaskmenu.execute();
+                //actualizarListaMesas();
             }
-        });
+        });*/
 
         displayListView();
+
+        Timer t = new Timer();
+
+        TimerTask task = new TimerTask() {
+
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        actualizarListaMesas();
+                        MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
+                        myATaskmenu.execute();
+
+                    }
+                });
+            }
+        };
+
+        t.scheduleAtFixedRate(task, 0, 5000);
     }
     private void displayListView() {
 
@@ -146,8 +170,8 @@ public class BarActivity extends AppCompatActivity {
 
 
     public void actualizarPedidos(View view){
-         //MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
-        //myATaskmenu.execute();
+        MyATaskACTUALIZAR myATaskmenu = new MyATaskACTUALIZAR();
+        myATaskmenu.execute();
     }
 
     private class MyATaskACTUALIZAR extends AsyncTask<ArrayList<Plato>,Void,String> {
@@ -170,6 +194,8 @@ public class BarActivity extends AppCompatActivity {
                     System.out.println("DEBUG 3 FALSE");
                 }
 
+
+
                 System.out.println("DEBUG 4");
 
                 return "TRUE;";
@@ -180,6 +206,8 @@ public class BarActivity extends AppCompatActivity {
             return null;
         }
 
+
+
         @Override
         protected void onPreExecute()
         {
@@ -188,8 +216,28 @@ public class BarActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String value){
+            System.out.println("DEBUG 5");
+        }
+    }
+
+    public void actualizarListaMesas() {
+
+        Pedidos pedidos = Pedidos.getInstance();
+        System.out.print("ACTUALIZANDO MESAS\n");
+        for (int k = 0; k < pedidos.getMesas().size(); k++){
+
+            if(pedidos.getMesa(k).isPendiente()){
+                System.out.print("    MESA " + (k + 1) + " PENDIENTE\n");
+                this.mesaList.set(k, "    MESA " + (k + 1) + " PENDIENTE");
+            }else{
+                System.out.print("    MESA " + (k + 1) + " LIBRE\n");
+                this.mesaList.set(k, "    MESA " + (k + 1) + " LIBRE");
+            }
+            dataAdapter.notifyDataSetChanged();
+
 
         }
+
     }
 
     public void actualizarMesas(int n){

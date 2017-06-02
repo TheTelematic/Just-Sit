@@ -26,6 +26,10 @@ public class Pedidos {
         return singleton;
     }
 
+    public Mesa getMesa(int index){
+        return mesas.get(index);
+    }
+
     public List<Mesa> getMesas() {
         return mesas;
     }
